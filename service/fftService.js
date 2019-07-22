@@ -5,7 +5,7 @@ import {sprintf} from 'sprintf-js';
 
 let service = {
     timeoutId: {},
-    timeoutDelay: 3000,
+    timeoutDelay: 30000,
 };
 
 service.calculateFFT = (binSize, timestamp) => {
