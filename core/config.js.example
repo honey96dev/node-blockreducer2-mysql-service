@@ -1,0 +1,51 @@
+module.exports = {
+    mysql: {
+        connectionLimit: 10,
+        host: '127.0.0.1',
+        user: 'root',
+        password: '',
+        database: 'blockreducer2',
+        port: 3306
+    },
+    dbTblName: {
+        tradeBucketed: 'trade_bucketed',
+        tradeBucketed1m: 'trade_bucketed_1m',
+        tradeBucketed5m: 'trade_bucketed_5m',
+        tradeBucketed1h: 'trade_bucketed_1h',
+
+        fft: 'fft',
+        fft5m: 'fft_5m',
+        fft1h: 'fft_1h',
+
+        tradesBuffer: 'trades_buffer',
+        volume: 'volume',
+        volume1m: 'volume_1m',
+        volume5m: 'volume_5m',
+        volume1h: 'volume_1h',
+
+        vwap1m: 'vwap_1m',
+        vwap5m: 'vwap_5m',
+        vwap1h: 'vwap_1h',
+
+        interestedNValue1m: 'interested_n_value_1m',
+        interestedNValue5m: 'interested_n_value_5m',
+        interestedNValue1h: 'interested_n_value_1h',
+
+        deribitInstruments: 'deribit_instruments',
+        deribitInstruments2: 'deribit_instruments2',
+    },
+    bitmex: {
+        testnet: false,
+        realnetApi: 'https://www.bitmex.com/api/v1',
+        testnetApi: 'https://testnet.bitmex.com/api/v1',
+        testnetWsUrl: 'wss://testnet.bitmex.com/realtime',
+        realnetWsUrl: 'wss://www.bitmex.com/realtime',
+    },
+    deribit: {
+        testnet: false,
+        baseUrlTestnet: 'https://test.deribit.com',
+        baseUrlRealnet: 'https://www.deribit.com',
+        pathInstruments: '/api/v2/public/get_instruments',
+        pathTicker: '/api/v2/public/ticker',
+    },
+};

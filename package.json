@@ -1,0 +1,27 @@
+{
+  "name": "src",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/start-webpp"
+  },
+  "dependencies": {
+    "fft-js": "0.0.12",
+    "fili": "^2.0.3",
+    "mysql2": "^1.6.5",
+    "q": "^1.5.1",
+    "request": "^2.88.0",
+    "sprintf-js": "^1.1.2",
+    "step": "^1.0.0",
+    "ws-reconnect": "^1.0.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/register": "^7.5.5",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.6",
+    "babel-preset-env": "^1.7.0"
+  }
+}
