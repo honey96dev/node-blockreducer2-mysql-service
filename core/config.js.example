@@ -17,6 +17,11 @@ module.exports = {
         fft5m: 'fft_5m',
         fft1h: 'fft_1h',
 
+        id0: 'id0',
+        id0_1m: 'id0_1m',
+        id0_5m: 'id0_5m',
+        id0_1h: 'id0_1h',
+
         tradesBuffer: 'trades_buffer',
         volume: 'volume',
         volume1m: 'volume_1m',

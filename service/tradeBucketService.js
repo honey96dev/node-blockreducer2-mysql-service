@@ -10,9 +10,10 @@ let service = {
     timeoutDelay: 30000,
 };
 
-service.downloadTradeBucketed = (binSize, startTime) => {
-    if (service.timeoutIds[binSize]) {
-        clearTimeout(service.timeoutIds[binSize]);
+service.downloadTradeBucketed = (symbol, binSize, startTime) => {
+    const timeoutIdKey = symbol + ':' + binSize;
+    if (service.timeoutIds[timeoutIdKey]) {
+        clearTimeout(service.timeoutIds[timeoutIdKey]);
     }
 
     // step(
@@ -34,13 +35,13 @@ service.downloadTradeBucketed = (binSize, startTime) => {
     //     },
     //     (error, response, body) => {
     //         if (error) {
-    //             service.timeoutIds[binSize] = setTimeout(service.downloadTradeBucketed, service.timeoutDelay, binSize, startTime);
+    //             service.timeoutIds[timeoutIdKey] = setTimeout(service.downloadTradeBucketed, service.timeoutDelay, binSize, startTime);
     //             console.error('downloadTradeBucketed-error', binSize, startTime, JSON.stringify(error), JSON.stringify(body));
     //             // this.done();
     //         }
     //
     //         if (!response || response.statusCode !== 200) {
-    //             service.timeoutIds[binSize] = setTimeout(service.downloadTradeBucketed, service.timeoutDelay, binSize, startTime);
+    //             service.timeoutIds[timeoutIdKey] = setTimeout(service.downloadTradeBucketed, service.timeoutDelay, binSize, startTime);
     //             console.error('downloadTradeBucketed-error response', binSize, startTime, !!response ? response.statusCode : -1, JSON.stringify(response));
     //             // this.done();
     //         }
@@ -71,10 +72,10 @@ service.downloadTradeBucketed = (binSize, startTime) => {
     //     },
     //     (error, results, fields) => {
     //         if (error) {
-    //             service.timeoutIds[binSize] = setTimeout(service.downloadTradeBucketed, service.timeoutDelay, binSize, startTime);
+    //             service.timeoutIds[timeoutIdKey] = setTimeout(service.downloadTradeBucketed, service.timeoutDelay, binSize, startTime);
     //             console.error('downloadTradeBucketed-error mysql', binSize, startTime, JSON.stringify(error));
     //         } else {
-    //             service.timeoutIds[binSize] = setTimeout(service.downloadTradeBucketed, service.timeoutDelay, binSize, startTime);
+    //             service.timeoutIds[timeoutIdKey] = setTimeout(service.downloadTradeBucketed, service.timeoutDelay, binSize, startTime);
     //             console.log('downloadTradeBucketed', binSize, startTime);
     //         }
     //     }
@@ -99,7 +100,7 @@ service.downloadTradeBucketed = (binSize, startTime) => {
 
         request(url, {}, function (error, response, body) {
             if (error) {
-                service.timeoutIds[binSize] = setTimeout(service.downloadTradeBucketed, service.timeoutDelay, binSize, startTime);
+                service.timeoutIds[timeoutIdKey] = setTimeout(service.downloadTradeBucketed, service.timeoutDelay, symbol, binSize, startTime);
                 console.error('downloadTradeBucketed-error', binSize, startTime, JSON.stringify(error));
                 return;
             }
@@ -127,36 +128,36 @@ service.downloadTradeBucketed = (binSize, startTime) => {
                     console.log('downloadTradeBucketed', 'mysql-start');
                     dbConn.query(sql, [rows], (error, results, fields) => {
                         if (error) {
-                            service.timeoutIds[binSize] = setTimeout(service.downloadTradeBucketed, service.timeoutDelay, binSize, startTime);
+                            service.timeoutIds[timeoutIdKey] = setTimeout(service.downloadTradeBucketed, service.timeoutDelay, symbol, binSize, startTime);
                             console.error('downloadTradeBucketed-mysql', binSize, startTime, JSON.stringify(error));
                         } else {
-                            service.timeoutIds[binSize] = setTimeout(service.downloadTradeBucketed, service.timeoutDelay, binSize, lastTimestamp);
+                            service.timeoutIds[timeoutIdKey] = setTimeout(service.downloadTradeBucketed, service.timeoutDelay, symbol, binSize, lastTimestamp);
                             console.log('downloadTradeBucketed', binSize, lastTimestamp);
                         }
                     });
                 } else {
-                    service.timeoutIds[binSize] = setTimeout(service.downloadTradeBucketed, service.timeoutDelay, binSize, startTime);
+                    service.timeoutIds[timeoutIdKey] = setTimeout(service.downloadTradeBucketed, service.timeoutDelay, symbol, binSize, startTime);
                     console.log('downloadTradeBucketed', binSize, startTime);
                 }
             } else {
-                service.timeoutIds[binSize] = setTimeout(service.downloadTradeBucketed, service.timeoutDelay, binSize, startTime);
+                service.timeoutIds[timeoutIdKey] = setTimeout(service.downloadTradeBucketed, service.timeoutDelay, symbol, binSize, startTime);
                 console.error('downloadTradeBucketed-response', binSize, startTime, 'response', JSON.stringify(response));
             }
         });
     } catch (e) {
-        service.timeoutIds[binSize] = setTimeout(service.downloadTradeBucketed, service.timeoutDelay, binSize, startTime);
+        service.timeoutIds[timeoutIdKey] = setTimeout(service.downloadTradeBucketed, service.timeoutDelay, symbol, binSize, startTime);
         console.error('downloadTradeBucketed-error', binSize, startTime);
     }
 };
 
-service.getLastTimestamp = (binSize, cb) => {
-    let sql = sprintf("SELECT `timestamp` FROM `%s_%s` ORDER BY `timestamp` DESC LIMIT 1;", dbTblName.tradeBucketed, binSize);
+service.getLastTimestamp = (symbol, binSize, cb) => {
+    let sql = sprintf("SELECT `timestamp` FROM `%s_%s` WHERE `symbol` = '%s' ORDER BY `timestamp` DESC LIMIT 1;", dbTblName.tradeBucketed, binSize, symbol);
     dbConn.query(sql, null, (error, rows, fields) => {
         if (error || rows.length === 0) {
-            cb(binSize, '');
+            cb(symbol, binSize, '');
             return;
         } else {
-            cb(binSize, rows[0]['timestamp']);
+            cb(symbol, binSize, rows[0]['timestamp']);
         }
     });
 };

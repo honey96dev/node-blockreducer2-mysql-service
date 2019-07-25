@@ -8,16 +8,21 @@ let service = {
     timeoutDelay: 30000,
 };
 
-service.calculateFFT = (binSize, timestamp) => {
+service.calculateFFT = (symbol, binSize, timestamp) => {
     if (timestamp.length === 0) {
         if (binSize === '5m') {
-            timestamp = '2015-09-25T12:05:00.000Z';
+            if (symbol === 'XBTUSD') {
+                timestamp = '2015-09-25T12:05:00.000Z';
+            }
         } else if (binSize === '1h') {
-            timestamp = '2015-09-25T13:00:00.000Z';
+            if (symbol) {
+                timestamp = '2015-09-25T13:00:00.000Z';
+            }
         }
     }
-    if (service.timeoutId[binSize]) {
-        clearTimeout(service.timeoutId[binSize]);
+    const timeoutIdKey = symbol + ':' + binSize;
+    if (service.timeoutId[timeoutIdKey]) {
+        clearTimeout(service.timeoutId[timeoutIdKey]);
     }
     let timeStep;
     if (binSize === '5m') {
@@ -26,8 +31,8 @@ service.calculateFFT = (binSize, timestamp) => {
         timeStep = 60 * 60 * 1000;
     }
     timestamp = new Date(new Date(timestamp).getTime() - timeStep * 500).toISOString();
-    let sql = sprintf("SELECT * FROM `%s_%s` WHERE `timestamp` > '%s' ORDER BY `timestamp` LIMIT 1000;", dbTblName.tradeBucketed, binSize, timestamp);
-    console.log('calculateFFT', binSize, timestamp, sql);
+    let sql = sprintf("SELECT * FROM `%s_%s` WHERE `symbol` = '%s' AND `timestamp` > '%s' ORDER BY `timestamp` LIMIT 1000;", dbTblName.tradeBucketed, binSize, symbol, timestamp);
+    console.log('calculateFFT', symbol, binSize, timestamp, sql);
     dbConn.query(sql, null, (error, results, fields) => {
         if (error) {
             console.log(error);
@@ -118,6 +123,7 @@ service.calculateFFT = (binSize, timestamp) => {
             for (let i = 0; i < timestamps.length - 200; i++) {
                 calced.push([
                     timestamps[i],
+                    symbol,
                     open[i],
                     high[i],
                     low[i],
@@ -127,7 +133,7 @@ service.calculateFFT = (binSize, timestamp) => {
                 ])
             }
 
-            let sql = sprintf("INSERT INTO `%s_%s`(`timestamp`, `open`, `high`, `low`, `close`, `lowPass`, `highPass`) VALUES ? ON DUPLICATE KEY UPDATE `timestamp` = VALUES(`timestamp`), `open` = VALUES(`open`), `open` = VALUES(`open`), `high` = VALUES(`high`), `low` = VALUES(`low`), `close` = VALUES(`close`), `highPass` = VALUES(`highPass`);", dbTblName.fft, binSize);
+            let sql = sprintf("INSERT INTO `%s_%s`(`timestamp`, `symbol`, `open`, `high`, `low`, `close`, `lowPass`, `highPass`) VALUES ? ON DUPLICATE KEY UPDATE `symbol` = VALUES(`symbol`), `open` = VALUES(`open`), `open` = VALUES(`open`), `high` = VALUES(`high`), `low` = VALUES(`low`), `close` = VALUES(`close`), `highPass` = VALUES(`highPass`);", dbTblName.fft, binSize);
             let buffer = [];
             for (let item of calced) {
                 buffer.push(item);
@@ -154,17 +160,17 @@ service.calculateFFT = (binSize, timestamp) => {
                 });
             }
         }
-        service.timeoutId[binSize] = setTimeout(service.calculateFFT, service.timeoutDelay, binSize, timestamp);
+        service.timeoutId[timeoutIdKey] = setTimeout(service.calculateFFT, service.timeoutDelay, symbol, binSize, timestamp);
     });
 };
 
-service.getLastTimestamp = (binSize, cb) => {
-    let sql = sprintf("SELECT `timestamp` FROM `%s_%s` ORDER BY `timestamp` DESC LIMIT 1;", dbTblName.fft, binSize);
+service.getLastTimestamp = (symbol, binSize, cb) => {
+    let sql = sprintf("SELECT `timestamp` FROM `%s_%s` WHERE `symbol` = '%s' ORDER BY `timestamp` DESC LIMIT 1;", dbTblName.fft, binSize, symbol);
     dbConn.query(sql, null, (error, rows, fields) => {
         if (error || rows.length === 0) {
-            cb(binSize, '');
+            cb(symbol, binSize, '');
         } else {
-            cb(binSize, rows[0]['timestamp']);
+            cb(symbol, binSize, rows[0]['timestamp']);
         }
     });
 };
