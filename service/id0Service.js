@@ -5,7 +5,7 @@ import {sprintf} from 'sprintf-js';
 
 let service = {
     timeoutId: {},
-    timeoutDelay: 0,
+    timeoutDelay: 30000,
 };
 
 service.calculateId0 = (symbol, binSize, timestamp) => {
