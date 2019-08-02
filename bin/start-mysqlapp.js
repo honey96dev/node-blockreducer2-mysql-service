@@ -1,6 +1,7 @@
 import cluster from 'cluster';
-import tradeBucketService from '../service/tradeBucketService';
-import volumeService from '../service/volumeService';
+import bitmexTradeBucketService from '../service/bitmexTradeBucketService';
+import bitfinexCandleTradeService from '../service/bitfinexCandleTradeService';
+import bitmexVolumeService from '../service/bitmexVolumeService';
 import fftService from '../service/fftService';
 import bitmexInstrumentService from '../service/bitmexInstrumentService';
 import deribitInstrumentService from '../service/deribitInstrumentService';
@@ -15,22 +16,33 @@ if (cluster.isMaster) {
 
 if (cluster.isWorker) {
     //trades bucket
-    setTimeout(tradeBucketService.getLastTimestamp, 0, 'XBTUSD', '1m', (symbol, binSize, timestamp) => {
-        tradeBucketService.downloadTradeBucketed(symbol, binSize, timestamp);
+    setTimeout(bitmexTradeBucketService.getLastTimestamp, 0, 'XBTUSD', '1m', (symbol, binSize, timestamp) => {
+        bitmexTradeBucketService.downloadTradeBucketed(symbol, binSize, timestamp);
     });
-    setTimeout(tradeBucketService.getLastTimestamp, 10000, 'XBTUSD', '5m', (symbol, binSize, timestamp) => {
-        tradeBucketService.downloadTradeBucketed(symbol, binSize, timestamp);
+    setTimeout(bitmexTradeBucketService.getLastTimestamp, 3000, 'XBTUSD', '5m', (symbol, binSize, timestamp) => {
+        bitmexTradeBucketService.downloadTradeBucketed(symbol, binSize, timestamp);
     });
-    setTimeout(tradeBucketService.getLastTimestamp, 20000, 'XBTUSD', '1h', (symbol, binSize, timestamp) => {
-        tradeBucketService.downloadTradeBucketed(symbol, binSize, timestamp);
+    setTimeout(bitmexTradeBucketService.getLastTimestamp, 6000, 'XBTUSD', '1h', (symbol, binSize, timestamp) => {
+        bitmexTradeBucketService.downloadTradeBucketed(symbol, binSize, timestamp);
     });
 
+    setTimeout(bitfinexCandleTradeService.getLastTimestamp, 0, 'tETHUSD', '1m', (symbol, binSize, timestamp) => {
+        bitfinexCandleTradeService.downloadCandleTrade(symbol, binSize, timestamp);
+    });
+    // setTimeout(bitfinexCandleTradeService.getLastTimestamp, 3500, 'tETHUSD', '5m', (symbol, binSize, timestamp) => {
+    //     bitfinexCandleTradeService.downloadCandleTrade(symbol, binSize, timestamp);
+    // });
+    // setTimeout(bitfinexCandleTradeService.getLastTimestamp, 6500, 'tETHUSD', '1h', (symbol, binSize, timestamp) => {
+    //     bitfinexCandleTradeService.downloadCandleTrade(symbol, binSize, timestamp);
+    // });
+
+
     //volume
-    volumeService.startRead([
+    bitmexVolumeService.startRead([
         'trade:XBTUSD',
     ]);
-    setTimeout(volumeService.saveTradesBuffer, 10000);
-    setTimeout(volumeService.calculateVolume, 20000);
+    setTimeout(bitmexVolumeService.saveTradesBuffer, 10000);
+    setTimeout(bitmexVolumeService.calculateVolume, 20000);
 
     id0Service.startCalculation();
 

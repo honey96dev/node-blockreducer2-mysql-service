@@ -16,72 +16,6 @@ service.downloadTradeBucketed = (symbol, binSize, startTime) => {
         clearTimeout(service.timeoutIds[timeoutIdKey]);
     }
 
-    // step(
-    //     () => {
-    //         if (startTime.length === 0) {
-    //             if (binSize === '1m') {
-    //                 startTime = '2019-04-25T00:00:00.000Z';
-    //             } else if (binSize === '5m') {
-    //                 startTime = '2015-09-25T12:00:00.000Z';
-    //             } else if (binSize === '1h') {
-    //                 startTime = '2015-09-25T12:00:00.000Z';
-    //             }
-    //         }
-    //         startTime = startTime.replace("000Z", "100Z");
-    //         let url = sprintf('https://www.bitmex.com/api/v1/trade/bucketed?binSize=%s&partial=false&symbol=%s&count=%d&reverse=false&startTime=%s', binSize, 'XBTUSD', 750, startTime);
-    //         console.log('downloadTradeBucketed', url);
-    //
-    //         return request(url, {}, this);
-    //     },
-    //     (error, response, body) => {
-    //         if (error) {
-    //             service.timeoutIds[timeoutIdKey] = setTimeout(service.downloadTradeBucketed, service.timeoutDelay, binSize, startTime);
-    //             console.error('downloadTradeBucketed-error', binSize, startTime, JSON.stringify(error), JSON.stringify(body));
-    //             // this.done();
-    //         }
-    //
-    //         if (!response || response.statusCode !== 200) {
-    //             service.timeoutIds[timeoutIdKey] = setTimeout(service.downloadTradeBucketed, service.timeoutDelay, binSize, startTime);
-    //             console.error('downloadTradeBucketed-error response', binSize, startTime, !!response ? response.statusCode : -1, JSON.stringify(response));
-    //             // this.done();
-    //         }
-    //
-    //         if (!response || response.statusCode !== 200) {
-    //             let items = JSON.parse(body);
-    //             if (items.length > 0) {
-    //                 let sql;
-    //                 let lastTimestamp;
-    //                 let rows = [];
-    //                 for (let item of items) {
-    //                     rows.push([
-    //                         item.timestamp,
-    //                         item.symbol,
-    //                         item.open,
-    //                         item.high,
-    //                         item.low,
-    //                         item.close,
-    //                         item.volume,
-    //                     ]);
-    //                     lastTimestamp = item.timestamp;
-    //                 }
-    //                 sql = sprintf("INSERT INTO `%s_%s`(`timestamp`, `symbol`, `open`, `high`, `low`, `close`, `volume`) VALUES ? ON DUPLICATE KEY UPDATE `timestamp` = VALUES(`timestamp`), `symbol` = VALUES(`symbol`), `open` = VALUES(`open`), `high` = VALUES(`high`), `low` = VALUES(`low`), `close` = VALUES(`close`), `volume` = VALUES(`volume`);", dbTblName.tradeBucketed1h, binSize);
-    //
-    //                 return dbConn.query(sql, [rows], this);
-    //             }
-    //         }
-    //     },
-    //     (error, results, fields) => {
-    //         if (error) {
-    //             service.timeoutIds[timeoutIdKey] = setTimeout(service.downloadTradeBucketed, service.timeoutDelay, binSize, startTime);
-    //             console.error('downloadTradeBucketed-error mysql', binSize, startTime, JSON.stringify(error));
-    //         } else {
-    //             service.timeoutIds[timeoutIdKey] = setTimeout(service.downloadTradeBucketed, service.timeoutDelay, binSize, startTime);
-    //             console.log('downloadTradeBucketed', binSize, startTime);
-    //         }
-    //     }
-    // );
-
-
     try {
         if (startTime.length === 0) {
             if (binSize === '1m') {
@@ -94,8 +28,8 @@ service.downloadTradeBucketed = (symbol, binSize, startTime) => {
             }
         }
         startTime = startTime.replace("000Z", "100Z");
-        const apiBaseUrl = bitmex.testnet ? bitmex.testnetApi : bitmex.realnetApi;
-        let url = sprintf('%s/trade/bucketed?binSize=%s&partial=false&symbol=%s&count=%d&reverse=false&startTime=%s', apiBaseUrl, binSize, 'XBTUSD', 750, startTime);
+        const apiBaseUrl = bitmex.testnet ? bitmex.baseUrlTestnet : bitmex.baseUrlRealnet;
+        let url = sprintf('%s%s?binSize=%s&partial=false&symbol=%s&count=%d&reverse=false&startTime=%s', apiBaseUrl, bitmex.pathTradeBucketed, binSize, 'XBTUSD', bitmex.bufferSize, startTime);
         console.log('downloadTradeBucketed', url);
 
         request(url, {}, function (error, response, body) {

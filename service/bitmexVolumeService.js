@@ -29,7 +29,7 @@ service.renewSocket = () => {
         return;
     }
 
-    const wsUrl = Boolean(bitmex.testnet) ? bitmex.testnetWsUrl : bitmex.realnetWsUrl;
+    const wsUrl = Boolean(bitmex.testnet) ? bitmex.wsUrlTestnet : bitmex.wsUrlRealnet;
     service.socket = new WebSocket(wsUrl, {
         retryCount: 2, // default is 2
         reconnectInterval: 1 // default is 5

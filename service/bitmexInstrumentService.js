@@ -16,8 +16,8 @@ service.downloadInstrument = () => {
     }
 
     try {
-        const apiBaseUrl = bitmex.testnet ? bitmex.testnetApi : bitmex.realnetApi;
-        let url = sprintf('%s/instrument?symbol=XBTUSD&count=100&reverse=false', apiBaseUrl);
+        const apiBaseUrl = bitmex.testnet ? bitmex.baseUrlTestnet : bitmex.baseUrlRealnet;
+        let url = sprintf('%s%s?symbol=XBTUSD&count=100&reverse=false', apiBaseUrl, bitmex.pathInstrument);
         console.log('downloadInstrument', url);
 
         request(url, {}, function (error, response, body) {
