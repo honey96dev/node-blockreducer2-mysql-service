@@ -7,7 +7,7 @@ import Q from 'q';
 
 let service = {
     timeoutIds: {},
-    timeoutDelay: 100,
+    timeoutDelay: 1000,
 };
 
 service.downloadTradeBucketed = (symbol, binSize, startTime) => {
