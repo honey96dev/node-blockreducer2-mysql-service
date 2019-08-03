@@ -54,7 +54,7 @@ service.downloadCandleTrade = (symbol, timeframe, startTime) => {
             ]);
             lastTimestamp = item[0];
           }
-          sql = sprintf("INSERT INTO `%s_%s_%s`(`timestamp`, `open`, `high`, `low`, `close`, `volume`) VALUES ? ON DUPLICATE KEY UPDATE `timestamp` = VALUES(`timestamp`), `open` = VALUES(`open`), `high` = VALUES(`high`), `low` = VALUES(`low`), `close` = VALUES(`close`), `volume` = VALUES(`volume`);", dbTblName.tradeBucketed, symbol, timeframe);
+          sql = sprintf("INSERT INTO `%s_%s_%s`(`timestamp`, `open`, `high`, `close`, `low`, `volume`) VALUES ? ON DUPLICATE KEY UPDATE `timestamp` = VALUES(`timestamp`), `open` = VALUES(`open`), `high` = VALUES(`high`), `low` = VALUES(`low`), `close` = VALUES(`close`), `volume` = VALUES(`volume`);", dbTblName.tradeBucketed, symbol, timeframe);
 
           console.log('downloadCandleTrade', 'mysql-start');
           dbConn.query(sql, [rows], (error, results, fields) => {

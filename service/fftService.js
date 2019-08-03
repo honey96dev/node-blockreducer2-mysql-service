@@ -36,7 +36,7 @@ service.calculateFFT = (symbol, binSize, timestamp) => {
     }
     timestamp = new Date(new Date(timestamp).getTime() - timeStep * 500).toISOString();
     let sql = sprintf("SELECT * FROM `%s_%s_%s` WHERE `timestamp` > '%s' ORDER BY `timestamp` LIMIT 1000;", dbTblName.tradeBucketed, symbol, binSize, timestamp);
-    // console.log('calculateFFT', symbol, binSize, timestamp, sql);
+    console.log('calculateFFT', symbol, binSize, timestamp, sql);
     dbConn.query(sql, null, (error, results, fields) => {
         if (error) {
             console.log(error);
