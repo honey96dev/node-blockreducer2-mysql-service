@@ -37,7 +37,7 @@ service.calculateId0 = (symbol, binSize, timestamp) => {
             if (symbol === 'XBTUSD') {
                 id0LastTimestamp = '2019-04-25T00:01:00.000Z';
             } else if (symbol === 'tETHUSD') {
-                id0LastTimestamp = '2016-03-09T16:04:00.000Z';
+                id0LastTimestamp = '2016-03-29T09:31:00.000Z';
             }
         } else if (binSize === '5m') {
             if (symbol === 'XBTUSD') {
