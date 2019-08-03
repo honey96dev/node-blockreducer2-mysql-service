@@ -29,7 +29,8 @@ service.downloadCandleTrade = (symbol, timeframe, startTime) => {
     const apiBaseUrl = bitfinex.baseUrlRealnet;
     let url = sprintf('%s%s:%s:%s/hist?start=%d&sort=1&limit=%d', apiBaseUrl, bitfinex.pathCandleTrade, timeframe, symbol, startTime, bitfinex.bufferSize);
     console.log('downloadCandleTrade', url);
-    request(url, {}, function (error, response, body) {
+    request(url, {timeout: 5000}, function (error, response, body) {
+      console.log('downloadCandleTrade', 'request-end');
       if (error) {
         service.timeoutIds[timeoutIdKey] = setTimeout(service.downloadCandleTrade, service.timeoutDelay, symbol, timeframe, startTime);
         console.error('downloadCandleTrade-error1', timeframe, startTime, JSON.stringify(error));

@@ -164,11 +164,7 @@ service.calculateFFT = (symbol, binSize, timestamp) => {
                 });
             }
         }
-        if (symbol === 'XBTUSD') {
-            service.timeoutId[timeoutIdKey] = setTimeout(service.calculateFFT, service.timeoutDelay, symbol, binSize, timestamp);
-        } else {
-            service.timeoutId[timeoutIdKey] = setTimeout(service.calculateFFT, service.timeoutDelay, symbol, binSize, new Date(timestamp).getTime());
-        }
+        service.timeoutId[timeoutIdKey] = setTimeout(service.calculateFFT, service.timeoutDelay, symbol, binSize, timestamp);
     });
 };
 
