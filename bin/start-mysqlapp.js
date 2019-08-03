@@ -67,7 +67,7 @@ if (cluster.isWorker) {
     setTimeout(bitmexVolumeService.calculateVolume, 20000);
 
     id0Service.startCalculation();
-    // id0Service1.startCalculation();
+    id0Service1.startCalculation();
 
     // //fft
     setTimeout(fftService.getLastTimestamp, 5000, 'XBTUSD', '5m', (symbol, binSize, timestamp) => {

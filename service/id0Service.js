@@ -34,14 +34,23 @@ service.calculateId0 = (symbol, binSize, timestamp) => {
         id0LastTimestamp = new Date(new Date(timestamp).getTime() + timeStep).toISOString();
     } else {
         if (binSize === '1m') {
-            id0LastTimestamp = '2019-04-25T00:01:00.000Z';
-            // id0LastTimestamp = '2019-04-25T00:01:00.000Z';
+            if (symbol === 'XBTUSD') {
+                id0LastTimestamp = '2019-04-25T00:01:00.000Z';
+            } else if (symbol === 'tETHUSD') {
+                id0LastTimestamp = '2016-03-29T09:31:00.000Z';
+            }
         } else if (binSize === '5m') {
-            id0LastTimestamp = '2015-09-25T12:05:00.000Z';
-            // id0LastTimestamp = '2015-09-25T12:05:00.000Z';
+            if (symbol === 'XBTUSD') {
+                id0LastTimestamp = '2015-09-25T12:05:00.000Z';
+            } else if (symbol === 'tETHUSD') {
+                id0LastTimestamp = '2016-03-09T16:00:00.000Z';
+            }
         } else if (binSize === '1h') {
-            id0LastTimestamp = '2015-11-19T20:00:00.000Z';
-            // id0LastTimestamp = '2015-09-25T13:00:00.000Z';
+            if (symbol === 'XBTUSD') {
+                id0LastTimestamp = '2015-11-19T20:00:00.000Z';
+            } else if (symbol === 'tETHUSD') {
+                id0LastTimestamp = '2016-03-09T16:00:00.000Z';
+            }
         }
     }
 
