@@ -5,7 +5,7 @@ import {sprintf} from 'sprintf-js';
 
 let service = {
     timeoutId: {},
-    timeoutDelay: 30000,
+    timeoutDelay: 100,
 };
 
 service.calculateFFT = (symbol, binSize, timestamp) => {
@@ -13,10 +13,14 @@ service.calculateFFT = (symbol, binSize, timestamp) => {
         if (binSize === '5m') {
             if (symbol === 'XBTUSD') {
                 timestamp = '2015-09-25T12:05:00.000Z';
+            } else {
+                timestamp = 0;
             }
         } else if (binSize === '1h') {
             if (symbol) {
                 timestamp = '2015-09-25T13:00:00.000Z';
+            } else {
+                timestamp = 0;
             }
         }
     }
@@ -160,7 +164,11 @@ service.calculateFFT = (symbol, binSize, timestamp) => {
                 });
             }
         }
-        service.timeoutId[timeoutIdKey] = setTimeout(service.calculateFFT, service.timeoutDelay, symbol, binSize, timestamp);
+        if (symbol === 'XBTUSD') {
+            service.timeoutId[timeoutIdKey] = setTimeout(service.calculateFFT, service.timeoutDelay, symbol, binSize, timestamp);
+        } else {
+            service.timeoutId[timeoutIdKey] = setTimeout(service.calculateFFT, service.timeoutDelay, symbol, binSize, new Date(timestamp).getTime());
+        }
     });
 };
 
