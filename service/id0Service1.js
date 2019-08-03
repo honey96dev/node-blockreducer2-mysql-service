@@ -186,7 +186,7 @@ service.calculateId0 = (symbol, binSize, timestamp) => {
 };
 
 service.startCalculation = () => {
-    let symbol = 'tETHUSD';
+    let symbol = 'tBCHUSD';
     let sql = sprintf("SELECT `timestamp` FROM `%s_%s_%s` ORDER BY `timestamp` DESC LIMIT 1;", dbTblName.id0, symbol, '1m');
     dbConn.query(sql, undefined, (error, results, fields) => {
         if (error || results.length == 0) {
