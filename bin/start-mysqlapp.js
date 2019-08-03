@@ -31,9 +31,9 @@ if (cluster.isWorker) {
     // setTimeout(bitfinexCandleTradeService.getLastTimestamp, 0, 'tETHUSD', '1m', (symbol, binSize, timestamp) => {
     //     bitfinexCandleTradeService.downloadCandleTrade(symbol, binSize, timestamp);
     // });
-    // setTimeout(bitfinexCandleTradeService.getLastTimestamp, 3500, 'tETHUSD', '5m', (symbol, binSize, timestamp) => {
-    //     bitfinexCandleTradeService.downloadCandleTrade(symbol, binSize, timestamp);
-    // });
+    setTimeout(bitfinexCandleTradeService.getLastTimestamp, 3500, 'tETHUSD', '5m', (symbol, binSize, timestamp) => {
+        bitfinexCandleTradeService.downloadCandleTrade(symbol, binSize, timestamp);
+    });
     // setTimeout(bitfinexCandleTradeService.getLastTimestamp, 6500, 'tETHUSD', '1h', (symbol, binSize, timestamp) => {
     //     bitfinexCandleTradeService.downloadCandleTrade(symbol, binSize, timestamp);
     // });
@@ -49,12 +49,12 @@ if (cluster.isWorker) {
     // setTimeout(bitfinexCandleTradeService1.getLastTimestamp, 0, 'tETHUSD', '1m', (symbol, binSize, timestamp) => {
     //     bitfinexCandleTradeService1.downloadCandleTrade(symbol, binSize, timestamp);
     // });
-    setTimeout(bitfinexCandleTradeService1.getLastTimestamp, 0, 'tETHUSD', '5m', (symbol, binSize, timestamp) => {
-        bitfinexCandleTradeService1.downloadCandleTrade(symbol, binSize, timestamp);
-    });
-    // setTimeout(bitfinexCandleTradeService1.getLastTimestamp, 6500, 'tBCHUSD', '1h', (symbol, binSize, timestamp) => {
+    // setTimeout(bitfinexCandleTradeService1.getLastTimestamp, 0, 'tETHUSD', '5m', (symbol, binSize, timestamp) => {
     //     bitfinexCandleTradeService1.downloadCandleTrade(symbol, binSize, timestamp);
     // });
+    setTimeout(bitfinexCandleTradeService1.getLastTimestamp, 6500, 'tBCHUSD', '1h', (symbol, binSize, timestamp) => {
+        bitfinexCandleTradeService1.downloadCandleTrade(symbol, binSize, timestamp);
+    });
 
 
     //volume
