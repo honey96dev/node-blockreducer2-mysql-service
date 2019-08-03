@@ -191,8 +191,7 @@ service.calculateId0 = (symbol, binSize, timestamp) => {
     });
 };
 
-service.startCalculation = () => {
-    let symbol = 'XBTUSD';
+service.startCalculation = (symbol) => {
     let sql = sprintf("SELECT `timestamp` FROM `%s_%s_%s` ORDER BY `timestamp` DESC LIMIT 1;", dbTblName.id0, symbol, '1m');
     dbConn.query(sql, undefined, (error, results, fields) => {
         if (error || results.length == 0) {
@@ -217,32 +216,6 @@ service.startCalculation = () => {
             service.calculateId0(symbol, '1h', results[0].timestamp);
         }
     });
-
-    // symbol = 'tETHUSD';
-    // sql = sprintf("SELECT `timestamp` FROM `%s_%s_%s` ORDER BY `timestamp` DESC LIMIT 1;", dbTblName.id0, symbol, '1m');
-    // dbConn.query(sql, undefined, (error, results, fields) => {
-    //     if (error || results.length == 0) {
-    //         service.calculateId0(symbol, '1m', '');
-    //     } else {
-    //         service.calculateId0(symbol, '1m', results[0].timestamp);
-    //     }
-    // });
-    // sql = sprintf("SELECT `timestamp` FROM `%s_%s_%s` ORDER BY `timestamp` DESC LIMIT 1;", dbTblName.id0, symbol, '5m');
-    // dbConn.query(sql, undefined, (error, results, fields) => {
-    //     if (error || results.length == 0) {
-    //         service.calculateId0(symbol, '5m', '');
-    //     } else {
-    //         service.calculateId0(symbol, '5m', results[0].timestamp);
-    //     }
-    // });
-    // sql = sprintf("SELECT `timestamp` FROM `%s_%s_%s` ORDER BY `timestamp` DESC LIMIT 1;", dbTblName.id0, symbol, '1h');
-    // dbConn.query(sql, undefined, (error, results, fields) => {
-    //     if (error || results.length == 0) {
-    //         service.calculateId0(symbol, '1h', '');
-    //     } else {
-    //         service.calculateId0(symbol, '1h', results[0].timestamp);
-    //     }
-    // });
 };
 
 module.exports = service;

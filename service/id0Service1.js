@@ -61,7 +61,7 @@ service.calculateId0 = (symbol, binSize, timestamp) => {
     }
 
     let sql = sprintf("SELECT * FROM (SELECT * FROM `%s_%s_%s` WHERE `timestamp` <= '%s' ORDER BY `timestamp` DESC LIMIT 2000) `tmp` ORDER BY `timestamp` ASC;", dbTblName.tradeBucketed, symbol, binSize, id0LastTimestamp);
-    console.log('sql', sql);
+    // console.log(interval, id0LastTimestamp);
     dbConn.query(sql, undefined, (error, results, fields) => {
         if (error) {
             console.error(error);
