@@ -27,7 +27,9 @@ service.downloadCandleTrade = (symbol, timeframe, startTime) => {
     // startTime++;
     let symbol1 = symbol;
     if (symbol === 'tBCHUSD') {
-      if (timeframe === '5m' && startTime >= 1542300600000) {
+      if (timeframe === '1m' && startTime >= 1542300720000) {
+        symbol1 = 'tBABUSD';
+      } else if (timeframe === '5m' && startTime >= 1542300600000) {
         symbol1 = 'tBABUSD';
       } else if (timeframe === '1h' && startTime >= 1542297600000) {
         symbol1 = 'tBABUSD';
