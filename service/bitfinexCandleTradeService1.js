@@ -25,16 +25,17 @@ service.downloadCandleTrade = (symbol, timeframe, startTime) => {
       }
     }
     // startTime++;
+    let symbol1 = symbol;
     if (symbol === 'tBCHUSD') {
       if (timeframe === '5m' && startTime >= 1542300600000) {
-        symbol = 'tBABUSD';
+        symbol1 = 'tBABUSD';
       } else if (timeframe === '1h' && startTime >= 1542297600000) {
-        symbol = 'tBABUSD';
+        symbol1 = 'tBABUSD';
       }
     }
 
     const apiBaseUrl = bitfinex.baseUrlRealnet;
-    let url = sprintf('%s%s:%s:%s/hist?start=%d&sort=1&limit=%d', apiBaseUrl, bitfinex.pathCandleTrade, timeframe, symbol, startTime, bitfinex.bufferSize);
+    let url = sprintf('%s%s:%s:%s/hist?start=%d&sort=1&limit=%d', apiBaseUrl, bitfinex.pathCandleTrade, timeframe, symbol1, startTime, bitfinex.bufferSize);
     console.log('downloadCandleTrade', url);
     request(url, {timeout: 5000}, function (error, response, body) {
       console.log('downloadCandleTrade', 'request-end');
