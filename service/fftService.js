@@ -13,10 +13,14 @@ service.calculateFFT = (symbol, binSize, timestamp) => {
         if (binSize === '5m') {
             if (symbol === 'XBTUSD') {
                 timestamp = '2015-09-25T12:05:00.000Z';
+            } else {
+                timestamp = 0;
             }
         } else if (binSize === '1h') {
             if (symbol) {
                 timestamp = '2015-09-25T13:00:00.000Z';
+            } else {
+                timestamp = 0;
             }
         }
     }
