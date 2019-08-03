@@ -9,6 +9,7 @@ import fftService1 from '../service/fftService1';
 import bitmexInstrumentService from '../service/bitmexInstrumentService';
 import deribitInstrumentService from '../service/deribitInstrumentService';
 import id0Service from '../service/id0Service';
+import id0Service1 from '../service/id0Service1';
 
 if (cluster.isMaster) {
     cluster.fork();
@@ -65,7 +66,8 @@ if (cluster.isWorker) {
     setTimeout(bitmexVolumeService.saveTradesBuffer, 10000);
     setTimeout(bitmexVolumeService.calculateVolume, 20000);
 
-    // id0Service.startCalculation();
+    id0Service.startCalculation();
+    id0Service1.startCalculation();
 
     // //fft
     setTimeout(fftService.getLastTimestamp, 5000, 'XBTUSD', '5m', (symbol, binSize, timestamp) => {
