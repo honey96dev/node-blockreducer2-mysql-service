@@ -217,7 +217,7 @@ service.startCalculation = () => {
             service.calculateId0(symbol, '1h', results[0].timestamp);
         }
     });
-    symbol = 'tBCHUSD';
+    symbol = 'tETHUSD';
     sql = sprintf("SELECT `timestamp` FROM `%s_%s_%s` ORDER BY `timestamp` DESC LIMIT 1;", dbTblName.id0, symbol, '1m');
     dbConn.query(sql, undefined, (error, results, fields) => {
         if (error || results.length == 0) {
