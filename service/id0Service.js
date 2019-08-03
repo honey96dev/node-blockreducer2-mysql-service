@@ -151,10 +151,10 @@ service.calculateId0 = (symbol, binSize, timestamp) => {
         // console.log(ifft100);
         // let sql = sprintf("INSERT INTO `id0_%s` (`timestamp`, `open`, `high`, `low`, `close`, `num_3`, `num_3i`, `num_6`, `num_6i`, `num_9`, `num_9i`, `num_100`, `num_100i`) VALUES ? ON DUPLICATE KEY UPDATE `timestamp` = VALUES(`timestamp`), `open` = VALUES(`open`), `high` = VALUES(`high`), `low` = VALUES(`low`), `close` = VALUES(`close`), `num_3` = VALUES(`num_3`), `num_3i` = VALUES(`num_3i`), `num_6` = VALUES(`num_6`), `num_6i` = VALUES(`num_6i`), `num_9` = VALUES(`num_9`), `num_9i` = VALUES(`num_9i`), `num_100` = VALUES(`num_100`), `num_100i` = VALUES(`num_100i`);", interval);
         let sql = sprintf("INSERT INTO `%s_%s_%s` (`timestamp`, `open`, `high`, `low`, `close`, `num_3`, `num_3i`, `num_6`, `num_6i`, `num_9`, `num_9i`, `num_100`, `num_100i`) VALUES ('%s', '%f', '%f', '%f', '%f', '%f', '%f', '%f', '%f', '%f', '%f', '%f', '%f') ON DUPLICATE KEY UPDATE `open` = VALUES(`open`), `high` = VALUES(`high`), `low` = VALUES(`low`), `close` = VALUES(`close`), `num_3` = VALUES(`num_3`), `num_3i` = VALUES(`num_3i`), `num_6` = VALUES(`num_6`), `num_6i` = VALUES(`num_6i`), `num_9` = VALUES(`num_9`), `num_9i` = VALUES(`num_9i`), `num_100` = VALUES(`num_100`), `num_100i` = VALUES(`num_100i`);", dbTblName.id0, symbol, binSize, results[finalIdx].timestamp,
-            results[finalIdx].open,
-            results[finalIdx].high,
-            results[finalIdx].low,
-            results[finalIdx].close,
+            !!results[finalIdx].open ? results[finalIdx].open : 0,
+            !!results[finalIdx].high ? results[finalIdx].high : 0,
+            !!results[finalIdx].low ? results[finalIdx].low : 0,
+            !!results[finalIdx].close ? results[finalIdx].close : 0,
             ifft3[finalIdx][0],
             ifft3[finalIdx][1],
             ifft6[finalIdx][0],
