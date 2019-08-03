@@ -124,7 +124,7 @@ service.calculateFFT = (symbol, binSize, timestamp) => {
             if (timestamps.length === 0) {
                 return;
             }
-            for (let i = 0; i < timestamps.length - 200; i++) {
+            for (let i = 0; i < timestamps.length - 100; i++) {
                 calced.push([
                     timestamps[i],
                     open[i],
