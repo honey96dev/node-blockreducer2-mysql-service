@@ -16,13 +16,14 @@ service.downloadCandleTrade = (symbol, timeframe, startTime) => {
 
   try {
     if (startTime.length === 0) {
-      if (timeframe === '1m') {
-        startTime = 1364774819000;
-      } else if (timeframe === '5m') {
-        startTime = 1364774699000;
-      } else if (timeframe === '1h') {
-        startTime = 1364770799000;
-      }
+      startTime = 0;
+      // if (timeframe === '1m') {
+      //   startTime = 1364774819000;
+      // } else if (timeframe === '5m') {
+      //   startTime = 1364774699000;
+      // } else if (timeframe === '1h') {
+      //   startTime = 1364770799000;
+      // }
     }
     // startTime++;
     let symbol1 = symbol;
