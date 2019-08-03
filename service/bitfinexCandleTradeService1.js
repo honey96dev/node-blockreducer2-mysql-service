@@ -46,7 +46,6 @@ service.downloadCandleTrade = (symbol, timeframe, startTime) => {
           for (let item of items) {
             rows.push([
               new Date(item[0]).toISOString(),
-              symbol,
               item[1],
               item[2],
               item[3],
@@ -55,7 +54,7 @@ service.downloadCandleTrade = (symbol, timeframe, startTime) => {
             ]);
             lastTimestamp = item[0];
           }
-          sql = sprintf("INSERT INTO `%s_%s`(`timestamp`, `symbol`, `open`, `high`, `low`, `close`, `volume`) VALUES ? ON DUPLICATE KEY UPDATE `timestamp` = VALUES(`timestamp`), `symbol` = VALUES(`symbol`), `open` = VALUES(`open`), `high` = VALUES(`high`), `low` = VALUES(`low`), `close` = VALUES(`close`), `volume` = VALUES(`volume`);", dbTblName.tradeBucketed, timeframe);
+          sql = sprintf("INSERT INTO `%s_%s_%s`(`timestamp`, `open`, `high`, `low`, `close`, `volume`) VALUES ? ON DUPLICATE KEY UPDATE `timestamp` = VALUES(`timestamp`), `open` = VALUES(`open`), `high` = VALUES(`high`), `low` = VALUES(`low`), `close` = VALUES(`close`), `volume` = VALUES(`volume`);", dbTblName.tradeBucketed, symbol, timeframe);
 
           console.log('downloadCandleTrade', 'mysql-start');
           dbConn.query(sql, [rows], (error, results, fields) => {
@@ -83,7 +82,7 @@ service.downloadCandleTrade = (symbol, timeframe, startTime) => {
 };
 
 service.getLastTimestamp = (symbol, timeframe, cb) => {
-  let sql = sprintf("SELECT `timestamp` FROM `%s_%s` WHERE `symbol` = '%s' ORDER BY `timestamp` DESC LIMIT 1;", dbTblName.tradeBucketed, timeframe, symbol);
+  let sql = sprintf("SELECT `timestamp` FROM `%s_%s_%s` ORDER BY `timestamp` DESC LIMIT 1;", dbTblName.tradeBucketed, symbol, timeframe);
   dbConn.query(sql, null, (error, rows, fields) => {
     if (error || rows.length === 0) {
       cb(symbol, timeframe, 0);

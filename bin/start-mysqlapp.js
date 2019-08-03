@@ -46,15 +46,15 @@ if (cluster.isWorker) {
     // setTimeout(bitfinexCandleTradeService.getLastTimestamp, 15500, 'tBCHUSD', '1h', (symbol, binSize, timestamp) => {
     //     bitfinexCandleTradeService.downloadCandleTrade(symbol, binSize, timestamp);
     // });
-    // setTimeout(bitfinexCandleTradeService1.getLastTimestamp, 0, 'tBCHUSD', '1m', (symbol, binSize, timestamp) => {
+    // setTimeout(bitfinexCandleTradeService1.getLastTimestamp, 0, 'tETHUSD', '1m', (symbol, binSize, timestamp) => {
     //     bitfinexCandleTradeService1.downloadCandleTrade(symbol, binSize, timestamp);
     // });
-    // // setTimeout(bitfinexCandleTradeService1.getLastTimestamp, 0, 'tBCHUSD', '5m', (symbol, binSize, timestamp) => {
-    // //     bitfinexCandleTradeService1.downloadCandleTrade(symbol, binSize, timestamp);
-    // // });
-    // // setTimeout(bitfinexCandleTradeService1.getLastTimestamp, 6500, 'tBCHUSD', '1h', (symbol, binSize, timestamp) => {
-    // //     bitfinexCandleTradeService1.downloadCandleTrade(symbol, binSize, timestamp);
-    // // });
+    setTimeout(bitfinexCandleTradeService1.getLastTimestamp, 0, 'tETHUSD', '5m', (symbol, binSize, timestamp) => {
+        bitfinexCandleTradeService1.downloadCandleTrade(symbol, binSize, timestamp);
+    });
+    // setTimeout(bitfinexCandleTradeService1.getLastTimestamp, 6500, 'tBCHUSD', '1h', (symbol, binSize, timestamp) => {
+    //     bitfinexCandleTradeService1.downloadCandleTrade(symbol, binSize, timestamp);
+    // });
 
 
     //volume
@@ -86,13 +86,13 @@ if (cluster.isWorker) {
     //     fftService.calculateFFT(symbol, binSize, timestamp);
     // });
 
-    // //fft-hist
-    // setTimeout(fftService1.getLastTimestamp, 5000, 'XBTUSD', '5m', (symbol, binSize, timestamp) => {
-    //     fftService1.calculateFFT(symbol, binSize, timestamp);
-    // });
-    // setTimeout(fftService1.getLastTimestamp, 15000, 'XBTUSD', '1h', (symbol, binSize, timestamp) => {
-    //     fftService1.calculateFFT(symbol, binSize, timestamp);
-    // });
+    //fft-hist
+    setTimeout(fftService1.getLastTimestamp, 5000, 'tETHUSD', '5m', (symbol, binSize, timestamp) => {
+        fftService1.calculateFFT(symbol, binSize, timestamp);
+    });
+    setTimeout(fftService1.getLastTimestamp, 15000, 'tETHUSD', '1h', (symbol, binSize, timestamp) => {
+        fftService1.calculateFFT(symbol, binSize, timestamp);
+    });
 
     //bitmex instruments
     bitmexInstrumentService.downloadInstrument();
