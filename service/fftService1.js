@@ -36,7 +36,7 @@ service.calculateFFT = (symbol, binSize, timestamp) => {
     }
     timestamp = new Date(new Date(timestamp).getTime() - timeStep * 500).toISOString();
     let sql = sprintf("SELECT * FROM `%s_%s` WHERE `symbol` = '%s' AND `timestamp` > '%s' ORDER BY `timestamp` LIMIT 1000;", dbTblName.tradeBucketed, binSize, symbol, timestamp);
-    console.log('calculateFFT', symbol, binSize, timestamp, sql);
+    // console.log('calculateFFT', symbol, binSize, timestamp, sql);
     dbConn.query(sql, null, (error, results, fields) => {
         if (error) {
             console.log(error);
@@ -126,6 +126,7 @@ service.calculateFFT = (symbol, binSize, timestamp) => {
             }
             for (let i = 0; i < timestamps.length - 200; i++) {
                 calced.push([
+                    `${timestamps[i]}:${symbol}`,
                     timestamps[i],
                     symbol,
                     open[i],
@@ -137,7 +138,7 @@ service.calculateFFT = (symbol, binSize, timestamp) => {
                 ])
             }
 
-            let sql = sprintf("INSERT INTO `%s_%s`(`timestamp`, `symbol`, `open`, `high`, `low`, `close`, `lowPass`, `highPass`) VALUES ? ON DUPLICATE KEY UPDATE `symbol` = VALUES(`symbol`), `open` = VALUES(`open`), `open` = VALUES(`open`), `high` = VALUES(`high`), `low` = VALUES(`low`), `close` = VALUES(`close`), `highPass` = VALUES(`highPass`);", dbTblName.fft, binSize);
+            let sql = sprintf("INSERT INTO `%s_%s`(`id`, `timestamp`, `symbol`, `open`, `high`, `low`, `close`, `lowPass`, `highPass`) VALUES ? ON DUPLICATE KEY UPDATE `timestamp` = VALUES(`timestamp`), `symbol` = VALUES(`symbol`), `open` = VALUES(`open`), `open` = VALUES(`open`), `high` = VALUES(`high`), `low` = VALUES(`low`), `close` = VALUES(`close`), `highPass` = VALUES(`highPass`);", dbTblName.fft, binSize);
             let buffer = [];
             for (let item of calced) {
                 buffer.push(item);

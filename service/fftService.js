@@ -126,6 +126,7 @@ service.calculateFFT = (symbol, binSize, timestamp) => {
             }
             for (let i = 0; i < timestamps.length - 200; i++) {
                 calced.push([
+                    `${timestamps[i]}:${symbol}`,
                     timestamps[i],
                     symbol,
                     open[i],
@@ -137,7 +138,7 @@ service.calculateFFT = (symbol, binSize, timestamp) => {
                 ])
             }
 
-            let sql = sprintf("INSERT INTO `%s_%s`(`timestamp`, `symbol`, `open`, `high`, `low`, `close`, `lowPass`, `highPass`) VALUES ? ON DUPLICATE KEY UPDATE `symbol` = VALUES(`symbol`), `open` = VALUES(`open`), `open` = VALUES(`open`), `high` = VALUES(`high`), `low` = VALUES(`low`), `close` = VALUES(`close`), `highPass` = VALUES(`highPass`);", dbTblName.fft, binSize);
+            let sql = sprintf("INSERT INTO `%s_%s`(`id`, `timestamp`, `symbol`, `open`, `high`, `low`, `close`, `lowPass`, `highPass`) VALUES ? ON DUPLICATE KEY UPDATE `timestamp` = VALUES(`timestamp`), `symbol` = VALUES(`symbol`), `open` = VALUES(`open`), `open` = VALUES(`open`), `high` = VALUES(`high`), `low` = VALUES(`low`), `close` = VALUES(`close`), `highPass` = VALUES(`highPass`);", dbTblName.fft, binSize);
             let buffer = [];
             for (let item of calced) {
                 buffer.push(item);

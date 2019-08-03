@@ -7,7 +7,7 @@ import Q from 'q';
 
 let service = {
     timeoutIds: {},
-    timeoutDelay: 30000,
+    timeoutDelay: 100,
 };
 
 service.downloadTradeBucketed = (symbol, binSize, startTime) => {
@@ -32,7 +32,8 @@ service.downloadTradeBucketed = (symbol, binSize, startTime) => {
         let url = sprintf('%s%s?binSize=%s&partial=false&symbol=%s&count=%d&reverse=false&startTime=%s', apiBaseUrl, bitmex.pathTradeBucketed, binSize, 'XBTUSD', bitmex.bufferSize, startTime);
         console.log('downloadTradeBucketed', url);
 
-        request(url, {}, function (error, response, body) {
+        request(url, {timeout: 5000}, function (error, response, body) {
+            console.log('downloadTradeBucketed', 'end', url);
             if (error) {
                 service.timeoutIds[timeoutIdKey] = setTimeout(service.downloadTradeBucketed, service.timeoutDelay, symbol, binSize, startTime);
                 console.error('downloadTradeBucketed-error', binSize, startTime, JSON.stringify(error));
@@ -47,6 +48,7 @@ service.downloadTradeBucketed = (symbol, binSize, startTime) => {
                     let rows = [];
                     for (let item of items) {
                         rows.push([
+                            `${item.timestamp}:${item.symbol}`,
                             item.timestamp,
                             item.symbol,
                             item.open,
@@ -57,7 +59,7 @@ service.downloadTradeBucketed = (symbol, binSize, startTime) => {
                         ]);
                         lastTimestamp = item.timestamp;
                     }
-                    sql = sprintf("INSERT INTO `%s_%s`(`timestamp`, `symbol`, `open`, `high`, `low`, `close`, `volume`) VALUES ? ON DUPLICATE KEY UPDATE `timestamp` = VALUES(`timestamp`), `symbol` = VALUES(`symbol`), `open` = VALUES(`open`), `high` = VALUES(`high`), `low` = VALUES(`low`), `close` = VALUES(`close`), `volume` = VALUES(`volume`);", dbTblName.tradeBucketed, binSize);
+                    sql = sprintf("INSERT INTO `%s_%s`(`id`, `timestamp`, `symbol`, `open`, `high`, `low`, `close`, `volume`) VALUES ? ON DUPLICATE KEY UPDATE `timestamp` = VALUES(`timestamp`), `symbol` = VALUES(`symbol`), `open` = VALUES(`open`), `high` = VALUES(`high`), `low` = VALUES(`low`), `close` = VALUES(`close`), `volume` = VALUES(`volume`);", dbTblName.tradeBucketed, binSize);
 
                     console.log('downloadTradeBucketed', 'mysql-start');
                     dbConn.query(sql, [rows], (error, results, fields) => {
