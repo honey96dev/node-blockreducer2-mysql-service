@@ -73,9 +73,9 @@ if (cluster.isWorker) {
     setTimeout(fftService.getLastTimestamp, 15000, 'XBTUSD', '1h', (symbol, binSize, timestamp) => {
         fftService.calculateFFT(symbol, binSize, timestamp);
     });
-    // setTimeout(fftService.getLastTimestamp, 5000, 'tETHUSD', '5m', (symbol, binSize, timestamp) => {
-    //     fftService.calculateFFT(symbol, binSize, timestamp);
-    // });
+    setTimeout(fftService.getLastTimestamp, 5000, 'tETHUSD', '5m', (symbol, binSize, timestamp) => {
+        fftService.calculateFFT(symbol, binSize, timestamp);
+    });
     // setTimeout(fftService.getLastTimestamp, 15000, 'tETHUSD', '1h', (symbol, binSize, timestamp) => {
     //     fftService.calculateFFT(symbol, binSize, timestamp);
     // });
@@ -87,9 +87,9 @@ if (cluster.isWorker) {
     // });
 
     //fft-hist
-    setTimeout(fftService1.getLastTimestamp, 5000, 'tETHUSD', '5m', (symbol, binSize, timestamp) => {
-        fftService1.calculateFFT(symbol, binSize, timestamp);
-    });
+    // setTimeout(fftService1.getLastTimestamp, 5000, 'tETHUSD', '5m', (symbol, binSize, timestamp) => {
+    //     fftService1.calculateFFT(symbol, binSize, timestamp);
+    // });
     setTimeout(fftService1.getLastTimestamp, 15000, 'tETHUSD', '1h', (symbol, binSize, timestamp) => {
         fftService1.calculateFFT(symbol, binSize, timestamp);
     });
