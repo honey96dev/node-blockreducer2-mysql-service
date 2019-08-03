@@ -25,6 +25,13 @@ service.downloadCandleTrade = (symbol, timeframe, startTime) => {
       }
     }
     // startTime++;
+    if (symbol === 'tBCHUSD') {
+      if (timeframe === '5m' && startTime >= 1542300600000) {
+        symbol = 'tBABUSD';
+      } else if (timeframe === '1h' && startTime >= 1542297600000) {
+        symbol = 'tBABUSD';
+      }
+    }
 
     const apiBaseUrl = bitfinex.baseUrlRealnet;
     let url = sprintf('%s%s:%s:%s/hist?start=%d&sort=1&limit=%d', apiBaseUrl, bitfinex.pathCandleTrade, timeframe, symbol, startTime, bitfinex.bufferSize);
