@@ -5,7 +5,7 @@ import {sprintf} from 'sprintf-js';
 
 let service = {
   timeoutIds: {},
-  timeoutDelay: 600,
+  timeoutDelay: 1000,
 };
 
 service.downloadCandleTrade = (symbol, timeframe, startTime) => {
