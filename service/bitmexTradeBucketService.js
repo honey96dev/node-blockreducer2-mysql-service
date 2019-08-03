@@ -32,7 +32,7 @@ service.downloadTradeBucketed = (symbol, binSize, startTime) => {
         let url = sprintf('%s%s?binSize=%s&partial=false&symbol=%s&count=%d&reverse=false&startTime=%s', apiBaseUrl, bitmex.pathTradeBucketed, binSize, 'XBTUSD', bitmex.bufferSize, startTime);
         console.log('downloadTradeBucketed', url);
 
-        request(url, {timeout: 5000}, function (error, response, body) {
+        request(url, {}, function (error, response, body) {
             console.log('downloadTradeBucketed', 'end', url);
             if (error) {
                 service.timeoutIds[timeoutIdKey] = setTimeout(service.downloadTradeBucketed, service.timeoutDelay, symbol, binSize, startTime);
@@ -48,9 +48,7 @@ service.downloadTradeBucketed = (symbol, binSize, startTime) => {
                     let rows = [];
                     for (let item of items) {
                         rows.push([
-                            `${item.timestamp}:${item.symbol}`,
                             item.timestamp,
-                            item.symbol,
                             item.open,
                             item.high,
                             item.low,
@@ -59,7 +57,7 @@ service.downloadTradeBucketed = (symbol, binSize, startTime) => {
                         ]);
                         lastTimestamp = item.timestamp;
                     }
-                    sql = sprintf("INSERT INTO `%s_%s`(`id`, `timestamp`, `symbol`, `open`, `high`, `low`, `close`, `volume`) VALUES ? ON DUPLICATE KEY UPDATE `timestamp` = VALUES(`timestamp`), `symbol` = VALUES(`symbol`), `open` = VALUES(`open`), `high` = VALUES(`high`), `low` = VALUES(`low`), `close` = VALUES(`close`), `volume` = VALUES(`volume`);", dbTblName.tradeBucketed, binSize);
+                    sql = sprintf("INSERT INTO `%s_%s_%s`(`timestamp`, `open`, `high`, `low`, `close`, `volume`) VALUES ? ON DUPLICATE KEY UPDATE `open` = VALUES(`open`), `high` = VALUES(`high`), `low` = VALUES(`low`), `close` = VALUES(`close`), `volume` = VALUES(`volume`);", dbTblName.tradeBucketed, symbol, binSize);
 
                     console.log('downloadTradeBucketed', 'mysql-start');
                     dbConn.query(sql, [rows], (error, results, fields) => {
@@ -87,7 +85,7 @@ service.downloadTradeBucketed = (symbol, binSize, startTime) => {
 };
 
 service.getLastTimestamp = (symbol, binSize, cb) => {
-    let sql = sprintf("SELECT `timestamp` FROM `%s_%s` WHERE `symbol` = '%s' ORDER BY `timestamp` DESC LIMIT 1;", dbTblName.tradeBucketed, binSize, symbol);
+    let sql = sprintf("SELECT `timestamp` FROM `%s_%s_%s` ORDER BY `timestamp` DESC LIMIT 1;", dbTblName.tradeBucketed, symbol, binSize);
     dbConn.query(sql, null, (error, rows, fields) => {
         if (error || rows.length === 0) {
             cb(symbol, binSize, '');
