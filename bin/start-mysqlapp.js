@@ -87,7 +87,7 @@ if (cluster.isWorker) {
     //     fftService.calculateFFT(symbol, binSize, timestamp);
     // });
 
-    fft-hist
+    // fft-hist
     setTimeout(fftService1.getLastTimestamp, 5000, 'tETHUSD', '5m', (symbol, binSize, timestamp) => {
         fftService1.calculateFFT(symbol, binSize, timestamp);
     });
