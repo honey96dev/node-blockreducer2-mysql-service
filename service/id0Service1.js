@@ -41,7 +41,7 @@ service.calculateId0 = (symbol, binSize, timestamp) => {
             } else if (symbol === 'tBCHUSD') {
                 id0LastTimestamp = '2017-08-02T08:53:00.000Z';
             } else if (symbol === 'tLTCUSD') {
-                id0LastTimestamp = '2017-07-01T16:59:00.000Z';
+                id0LastTimestamp = '2013-05-19T15:23:00.000Z';
             }
         } else if (binSize === '5m') {
             if (symbol === 'XBTUSD') {
@@ -51,7 +51,7 @@ service.calculateId0 = (symbol, binSize, timestamp) => {
             } else if (symbol === 'tBCHUSD') {
                 id0LastTimestamp = '2017-08-02T08:50:00.000Z';
             } else if (symbol === 'tLTCUSD') {
-                id0LastTimestamp = '2017-07-01T16:55:00.000Z';
+                id0LastTimestamp = '2013-05-19T15:20:00.000Z';
             }
         } else if (binSize === '1h') {
             if (symbol === 'XBTUSD') {
@@ -61,7 +61,7 @@ service.calculateId0 = (symbol, binSize, timestamp) => {
             } else if (symbol === 'tBCHUSD') {
                 id0LastTimestamp = '2017-08-02T08:00:00.000Z';
             } else if (symbol === 'tLTCUSD') {
-                id0LastTimestamp = '2017-07-01T16:00:00.000Z';
+                id0LastTimestamp = '2013-05-19T15:00:00.000Z';
             }
         }
     }
