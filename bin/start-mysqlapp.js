@@ -47,14 +47,23 @@ if (cluster.isWorker) {
     setTimeout(bitfinexCandleTradeService.getLastTimestamp, 15500, 'tBCHUSD', '1h', (symbol, binSize, timestamp) => {
         bitfinexCandleTradeService.downloadCandleTrade(symbol, binSize, timestamp);
     });
+    setTimeout(bitfinexCandleTradeService.getLastTimestamp, 18500, 'tEOSUSD', '1m', (symbol, binSize, timestamp) => {
+        bitfinexCandleTradeService.downloadCandleTrade(symbol, binSize, timestamp);
+    });
+    setTimeout(bitfinexCandleTradeService.getLastTimestamp, 21500, 'tEOSUSD', '5m', (symbol, binSize, timestamp) => {
+        bitfinexCandleTradeService.downloadCandleTrade(symbol, binSize, timestamp);
+    });
+    setTimeout(bitfinexCandleTradeService.getLastTimestamp, 24500, 'tEOSUSD', '1h', (symbol, binSize, timestamp) => {
+        bitfinexCandleTradeService.downloadCandleTrade(symbol, binSize, timestamp);
+    });
 
-    setTimeout(bitfinexCandleTradeService1.getLastTimestamp, 2500, 'tEOSUSD', '1m', (symbol, binSize, timestamp) => {
+    setTimeout(bitfinexCandleTradeService1.getLastTimestamp, 2500, 'tLTCUSD', '1m', (symbol, binSize, timestamp) => {
         bitfinexCandleTradeService1.downloadCandleTrade(symbol, binSize, timestamp);
     });
-    setTimeout(bitfinexCandleTradeService1.getLastTimestamp, 8500, 'tEOSUSD', '5m', (symbol, binSize, timestamp) => {
+    setTimeout(bitfinexCandleTradeService1.getLastTimestamp, 8500, 'tLTCUSD', '5m', (symbol, binSize, timestamp) => {
         bitfinexCandleTradeService1.downloadCandleTrade(symbol, binSize, timestamp);
     });
-    setTimeout(bitfinexCandleTradeService1.getLastTimestamp, 10500, 'tEOSUSD', '1h', (symbol, binSize, timestamp) => {
+    setTimeout(bitfinexCandleTradeService1.getLastTimestamp, 10500, 'tLTCUSD', '1h', (symbol, binSize, timestamp) => {
         bitfinexCandleTradeService1.downloadCandleTrade(symbol, binSize, timestamp);
     });
 
@@ -66,10 +75,10 @@ if (cluster.isWorker) {
     setTimeout(bitmexVolumeService.saveTradesBuffer, 10000);
     setTimeout(bitmexVolumeService.calculateVolume, 20000);
 
-    // id0Service.startCalculation();
-    id0Service1.startCalculation('XBTUSD');
-    id0Service1.startCalculation('tETHUSD');
-    id0Service1.startCalculation('tBCHUSD');
+    id0Service.startCalculation('XBTUSD');
+    id0Service.startCalculation('tETHUSD');
+    id0Service.startCalculation('tBCHUSD');
+    id0Service1.startCalculation('tLTCUSD');
 
     // //fft
     setTimeout(fftService.getLastTimestamp, 5000, 'XBTUSD', '5m', (symbol, binSize, timestamp) => {
@@ -88,6 +97,18 @@ if (cluster.isWorker) {
         fftService.calculateFFT(symbol, binSize, timestamp);
     });
     setTimeout(fftService.getLastTimestamp, 55000, 'tBCHUSD', '1h', (symbol, binSize, timestamp) => {
+        fftService.calculateFFT(symbol, binSize, timestamp);
+    });
+    setTimeout(fftService.getLastTimestamp, 65000, 'tEOSUSD', '5m', (symbol, binSize, timestamp) => {
+        fftService.calculateFFT(symbol, binSize, timestamp);
+    });
+    setTimeout(fftService.getLastTimestamp, 75000, 'tEOSUSD', '1h', (symbol, binSize, timestamp) => {
+        fftService.calculateFFT(symbol, binSize, timestamp);
+    });
+    setTimeout(fftService.getLastTimestamp, 85000, 'tLTCUSD', '5m', (symbol, binSize, timestamp) => {
+        fftService.calculateFFT(symbol, binSize, timestamp);
+    });
+    setTimeout(fftService.getLastTimestamp, 95000, 'tLTCUSD', '1h', (symbol, binSize, timestamp) => {
         fftService.calculateFFT(symbol, binSize, timestamp);
     });
     // setTimeout(fftService.getLastTimestamp, 5000, 'tBCHUSD', '5m', (symbol, binSize, timestamp) => {
