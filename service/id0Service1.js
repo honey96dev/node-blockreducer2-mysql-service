@@ -40,6 +40,8 @@ service.calculateId0 = (symbol, binSize, timestamp) => {
                 id0LastTimestamp = '2016-03-29T09:31:00.000Z';
             } else if (symbol === 'tBCHUSD') {
                 id0LastTimestamp = '2017-08-02T08:53:00.000Z';
+            } else if (symbol === 'tEOSUSD') {
+                id0LastTimestamp = '2017-07-01T16:59:00.000Z';
             } else if (symbol === 'tLTCUSD') {
                 id0LastTimestamp = '2013-05-19T15:23:00.000Z';
             }
@@ -50,6 +52,8 @@ service.calculateId0 = (symbol, binSize, timestamp) => {
                 id0LastTimestamp = '2016-03-09T16:00:00.000Z';
             } else if (symbol === 'tBCHUSD') {
                 id0LastTimestamp = '2017-08-02T08:50:00.000Z';
+            } else if (symbol === 'tEOSUSD') {
+                id0LastTimestamp = '2017-07-01T16:55:00.000Z';
             } else if (symbol === 'tLTCUSD') {
                 id0LastTimestamp = '2013-05-19T15:20:00.000Z';
             }
@@ -60,6 +64,8 @@ service.calculateId0 = (symbol, binSize, timestamp) => {
                 id0LastTimestamp = '2016-03-09T16:00:00.000Z';
             } else if (symbol === 'tBCHUSD') {
                 id0LastTimestamp = '2017-08-02T08:00:00.000Z';
+            } else if (symbol === 'tEOSUSD') {
+                id0LastTimestamp = '2017-07-01T16:00:00.000Z';
             } else if (symbol === 'tLTCUSD') {
                 id0LastTimestamp = '2013-05-19T15:00:00.000Z';
             }
@@ -76,7 +82,7 @@ service.calculateId0 = (symbol, binSize, timestamp) => {
         }
         // console.log(JSON.stringify(results));
         let resultCnt = results.length;
-        if (results.length < 2048) {
+        if (results.length < 2048 && results.length > 0) {
             const cnt = resultCnt;
             let lastTime = new Date(results[cnt - 1].timestamp);
             let timeStep = 0;

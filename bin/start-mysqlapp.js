@@ -4,6 +4,7 @@ import bitmexTradeBucketService1 from '../service/bitmexTradeBucketService1';
 import bitfinexCandleTradeService from '../service/bitfinexCandleTradeService';
 import bitfinexCandleTradeService1 from '../service/bitfinexCandleTradeService1';
 import bitmexVolumeService from '../service/bitmexVolumeService';
+import bitfinexVolumeService from '../service/bitfinexVolumeService';
 import fftService from '../service/fftService';
 import fftService1 from '../service/fftService1';
 import bitmexInstrumentService from '../service/bitmexInstrumentService';
@@ -74,10 +75,12 @@ if (cluster.isWorker) {
     ]);
     setTimeout(bitmexVolumeService.saveTradesBuffer, 10000);
     setTimeout(bitmexVolumeService.calculateVolume, 20000);
+    // bitfinexVolumeService.init();
 
     id0Service.startCalculation('XBTUSD');
     id0Service.startCalculation('tETHUSD');
     id0Service.startCalculation('tBCHUSD');
+    id0Service1.startCalculation('tEOSUSD');
     id0Service1.startCalculation('tLTCUSD');
 
     // //fft
