@@ -105,8 +105,8 @@ if (cluster.isWorker) {
     id0Service.startCalculation('XBTUSD');
     id0Service.startCalculation('tETHUSD');
     id0Service.startCalculation('tBABUSD');
-    id0Service.startCalculation('tEOSUSD');
-    id0Service.startCalculation('tLTCUSD');
+    id0Service1.startCalculation('tEOSUSD');
+    id0Service1.startCalculation('tLTCUSD');
 
     // //fft
     setTimeout(fftService.getLastTimestamp, 5000, 'XBTUSD', '5m', (symbol, binSize, timestamp) => {
