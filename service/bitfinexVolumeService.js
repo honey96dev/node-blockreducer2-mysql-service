@@ -20,7 +20,7 @@ let service = {
     tBABUSD: new Map(),
     tEOSUSD: new Map(),
     tLTCUSD: new Map(),
-    // tETHUSD: new Map(),
+    tBSVUSD: new Map(),
   },
   tradeLastTimestamp: new Date(1970, 1, 1).toISOString(),
 };
@@ -120,7 +120,7 @@ service.saveTradesBuffer = () => {
 
   let rows = [];
   let sql;
-  let symbols = ['tETHUSD', 'tBABUSD', 'tEOSUSD', 'tLTCUSD'];
+  let symbols = ['tETHUSD', 'tBABUSD', 'tEOSUSD', 'tLTCUSD', 'tBSVUSD'];
   // console.log(service.tradeBuffer);
   for (let symbol of symbols) {
     // console.log('tETHUSD', service.tradeBuffer[symbol]);
@@ -174,7 +174,7 @@ service.calculateVolume = () => {
   timestamp2 = timestamp2.toISOString();
 
 
-  let symbols = ['tETHUSD', 'tBABUSD', 'tEOSUSD', 'tLTCUSD'];
+  let symbols = ['tETHUSD', 'tBABUSD', 'tEOSUSD', 'tLTCUSD', 'tBSVUSD'];
   for (let symbol of symbols) {
     sql = sprintf("DELETE FROM `%s_%s` WHERE `timestamp` < '%s';", dbTblName.tradesBuffer, symbol, timestamp2);
     dbConn.query(sql, null, (error, result, fields) => {
