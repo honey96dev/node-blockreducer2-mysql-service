@@ -185,7 +185,7 @@ service.calculateVolume = () => {
     timestamp2 = new Date(timestamp1.getTime() + 60 * 1000);
     timestamp1 = timestamp1.toISOString();
     timestamp2 = timestamp2.toISOString();
-    sql = sprintf("SELECT IFNULL(SUM(`size` * `price`), 0) `volume` FROM `%s_%s` WHERE `timestamp` > '%s' AND `timestamp` <= '%s';", dbTblName.tradesBuffer, symbol, timestamp1, timestamp2);
+    sql = sprintf("SELECT IFNULL(SUM(`size`), 0) `volume` FROM `%s_%s` WHERE `timestamp` > '%s' AND `timestamp` <= '%s';", dbTblName.tradesBuffer, symbol, timestamp1, timestamp2);
     const volumeTimestamp1m = timestamp1;
     dbConn.query(sql, null, (error, rows, fields) => {
       if (error) {
@@ -203,7 +203,7 @@ service.calculateVolume = () => {
     timestamp2 = new Date(timestamp1.getTime() + 5 * 60 * 1000);
     timestamp1 = timestamp1.toISOString();
     timestamp2 = timestamp2.toISOString();
-    sql = sprintf("SELECT IFNULL(SUM(`size` * `price`), 0) `volume` FROM `%s_%s` WHERE `timestamp` > '%s' AND `timestamp` <= '%s';", dbTblName.tradesBuffer, symbol, timestamp1, timestamp2);
+    sql = sprintf("SELECT IFNULL(SUM(`size`), 0) `volume` FROM `%s_%s` WHERE `timestamp` > '%s' AND `timestamp` <= '%s';", dbTblName.tradesBuffer, symbol, timestamp1, timestamp2);
     const volumeTimestamp5m = timestamp1;
     dbConn.query(sql, null, (error, rows, fields) => {
       if (error) {
@@ -221,7 +221,7 @@ service.calculateVolume = () => {
     timestamp2 = new Date(timestamp1.getTime() + 60 * 60 * 1000);
     timestamp1 = timestamp1.toISOString();
     timestamp2 = timestamp2.toISOString();
-    sql = sprintf("SELECT IFNULL(SUM(`size` * `price`), 0) `volume` FROM `%s_%s` WHERE `timestamp` > '%s' AND `timestamp` <= '%s';", dbTblName.tradesBuffer, symbol, timestamp1, timestamp2);
+    sql = sprintf("SELECT IFNULL(SUM(`size`), 0) `volume` FROM `%s_%s` WHERE `timestamp` > '%s' AND `timestamp` <= '%s';", dbTblName.tradesBuffer, symbol, timestamp1, timestamp2);
     const volumeTimestamp1h = timestamp1;
     dbConn.query(sql, null, (error, rows, fields) => {
       if (error) {
