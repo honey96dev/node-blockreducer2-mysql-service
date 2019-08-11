@@ -99,6 +99,7 @@ service.onWsTrade = (symbol, data) => {
       trade[3],
     ]);
   }
+  // console.log('tradeBuffer', service.tradeBuffer);
 };
 
 service.startRead = (subscribes) => {
@@ -121,9 +122,9 @@ service.saveTradesBuffer = () => {
   let rows = [];
   let sql;
   let symbols = ['tETHUSD', 'tBABUSD', 'tEOSUSD', 'tLTCUSD', 'tBSVUSD'];
-  // console.log(service.tradeBuffer);
+  // console.log('saveTradesBuffer', service.tradeBuffer);
   for (let symbol of symbols) {
-    // console.log('tETHUSD', service.tradeBuffer[symbol]);
+    // console.log(symbol, service.tradeBuffer[symbol]);
     service.tradeBuffer[symbol].forEach((value, key, map) => {
       // console.log(key, value)
       rows.push(value);
@@ -139,6 +140,7 @@ service.saveTradesBuffer = () => {
             return;
           }
         });
+        console.log('saveTradeBuffer', symbol, rows);
         rows = [];
       }
     });
@@ -151,6 +153,7 @@ service.saveTradesBuffer = () => {
           return;
         }
       });
+      console.log('saveTradeBuffer', symbol, rows);
       rows = [];
     }
   }
@@ -182,10 +185,11 @@ service.calculateVolume = () => {
 
     timestamp1 = new Date(service.tradeLastTimestamp);
     timestamp1.setSeconds(0, 0);
-    timestamp2 = new Date(timestamp1.getTime() + 60 * 1000);
+    timestamp2 = new Date(timestamp1.getTime() - 60 * 1000);
     timestamp1 = timestamp1.toISOString();
     timestamp2 = timestamp2.toISOString();
-    sql = sprintf("SELECT IFNULL(SUM(`size`), 0) `volume` FROM `%s_%s` WHERE `timestamp` > '%s' AND `timestamp` <= '%s';", dbTblName.tradesBuffer, symbol, timestamp1, timestamp2);
+    sql = sprintf("SELECT IFNULL(SUM(`size`), 0) `volume` FROM `%s_%s` WHERE `timestamp` > '%s' AND `timestamp` <= '%s';", dbTblName.tradesBuffer, symbol, timestamp2, timestamp1);
+    console.log('calculateVolume', sql);
     const volumeTimestamp1m = timestamp1;
     dbConn.query(sql, null, (error, rows, fields) => {
       if (error) {
@@ -200,10 +204,10 @@ service.calculateVolume = () => {
 
     timestamp1 = new Date(service.tradeLastTimestamp);
     timestamp1.setMinutes(Math.floor(timestamp1.getMinutes() / 5) * 5, 0, 0);
-    timestamp2 = new Date(timestamp1.getTime() + 5 * 60 * 1000);
+    timestamp2 = new Date(timestamp1.getTime() - 5 * 60 * 1000);
     timestamp1 = timestamp1.toISOString();
     timestamp2 = timestamp2.toISOString();
-    sql = sprintf("SELECT IFNULL(SUM(`size`), 0) `volume` FROM `%s_%s` WHERE `timestamp` > '%s' AND `timestamp` <= '%s';", dbTblName.tradesBuffer, symbol, timestamp1, timestamp2);
+    sql = sprintf("SELECT IFNULL(SUM(`size`), 0) `volume` FROM `%s_%s` WHERE `timestamp` > '%s' AND `timestamp` <= '%s';", dbTblName.tradesBuffer, symbol, timestamp2, timestamp1);
     const volumeTimestamp5m = timestamp1;
     dbConn.query(sql, null, (error, rows, fields) => {
       if (error) {
@@ -218,10 +222,10 @@ service.calculateVolume = () => {
 
     timestamp1 = new Date(service.tradeLastTimestamp);
     timestamp1.setMinutes(0, 0, 0);
-    timestamp2 = new Date(timestamp1.getTime() + 60 * 60 * 1000);
+    timestamp2 = new Date(timestamp1.getTime() - 60 * 60 * 1000);
     timestamp1 = timestamp1.toISOString();
     timestamp2 = timestamp2.toISOString();
-    sql = sprintf("SELECT IFNULL(SUM(`size`), 0) `volume` FROM `%s_%s` WHERE `timestamp` > '%s' AND `timestamp` <= '%s';", dbTblName.tradesBuffer, symbol, timestamp1, timestamp2);
+    sql = sprintf("SELECT IFNULL(SUM(`size`), 0) `volume` FROM `%s_%s` WHERE `timestamp` > '%s' AND `timestamp` <= '%s';", dbTblName.tradesBuffer, symbol, timestamp2, timestamp1);
     const volumeTimestamp1h = timestamp1;
     dbConn.query(sql, null, (error, rows, fields) => {
       if (error) {
