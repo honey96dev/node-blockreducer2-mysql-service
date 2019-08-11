@@ -140,7 +140,6 @@ service.saveTradesBuffer = () => {
             return;
           }
         });
-        console.log('saveTradeBuffer', symbol, rows);
         rows = [];
       }
     });
@@ -189,7 +188,6 @@ service.calculateVolume = () => {
     timestamp1 = timestamp1.toISOString();
     timestamp2 = timestamp2.toISOString();
     sql = sprintf("SELECT IFNULL(SUM(`size`), 0) `volume` FROM `%s_%s` WHERE `timestamp` > '%s' AND `timestamp` <= '%s';", dbTblName.tradesBuffer, symbol, timestamp2, timestamp1);
-    console.log('calculateVolume', sql);
     const volumeTimestamp1m = timestamp1;
     dbConn.query(sql, null, (error, rows, fields) => {
       if (error) {
