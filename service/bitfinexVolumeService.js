@@ -90,7 +90,7 @@ service.onWsMessage = (data) => {
 };
 
 service.onWsTrade = (symbol, data) => {
-  console.error('onWsTrade', symbol, JSON.stringify(data));
+  // console.error('onWsTrade', symbol, JSON.stringify(data));
   for (let trade of data) {
     service.tradeBuffer[symbol].set(trade[0], [
       trade[0],
@@ -152,7 +152,7 @@ service.saveTradesBuffer = () => {
           return;
         }
       });
-      console.log('saveTradeBuffer', symbol, rows);
+      // console.log('saveTradeBuffer', symbol, rows);
       rows = [];
     }
   }

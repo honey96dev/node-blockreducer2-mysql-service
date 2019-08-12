@@ -7,6 +7,7 @@ import bitmexVolumeService from '../service/bitmexVolumeService';
 import bitfinexVolumeService from '../service/bitfinexVolumeService';
 import fftService from '../service/fftService';
 import fftService1 from '../service/fftService1';
+import fftFixService from '../service/fftFixService';
 import bitmexInstrumentService from '../service/bitmexInstrumentService';
 import deribitInstrumentService from '../service/deribitInstrumentService';
 import id0Service from '../service/id0Service';
@@ -176,6 +177,8 @@ if (cluster.isWorker) {
     // setTimeout(fftService.getLastTimestamp, 15000, 'tBABUSD', '1h', (symbol, binSize, timestamp) => {
     //     fftService.calculateFFT(symbol, binSize, timestamp);
     // });
+
+    fftFixService.checkFixRequest();
 
     // // fft-hist
     // setTimeout(fftService1.getLastTimestamp, 5000, 'tBABUSD', '5m', (symbol, binSize, timestamp) => {

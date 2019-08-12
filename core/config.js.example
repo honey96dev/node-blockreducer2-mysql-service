@@ -38,6 +38,8 @@ module.exports = {
 
     deribitInstruments: 'deribit_instruments',
     deribitInstruments2: 'deribit_instruments2',
+
+    fftFixTask: 'fft_fix_task',
   },
   bitmex: {
     testnet: false,
