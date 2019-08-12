@@ -68,4 +68,3 @@ module.exports = {
     pathCandleTrade: '/candles/trade',
   },
 };
-  
