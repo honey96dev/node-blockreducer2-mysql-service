@@ -125,68 +125,68 @@ if (cluster.isWorker) {
     setTimeout(bitfinexVolumeService.saveTradesBuffer, 10000);
     setTimeout(bitfinexVolumeService.calculateVolume, 20000);
 
-
-    id0Service.startCalculation('XBTUSD');
-    id0Service.startCalculation('tETHUSD');
-    id0Service.startCalculation('tBABUSD');
-    id0Service.startCalculation('tEOSUSD');
-    id0Service.startCalculation('tLTCUSD');
-    id0Service.startCalculation('tBSVUSD');
-    // id0Service1.startCalculation('tBSVUSD');
-
-    // //fft
-    setTimeout(fftService.getLastTimestamp, 5000, 'XBTUSD', '5m', (symbol, binSize, timestamp) => {
-        fftService.calculateFFT(symbol, binSize, timestamp);
-    });
-    setTimeout(fftService.getLastTimestamp, 15000, 'XBTUSD', '1h', (symbol, binSize, timestamp) => {
-        fftService.calculateFFT(symbol, binSize, timestamp);
-    });
-    setTimeout(fftService.getLastTimestamp, 25000, 'tETHUSD', '5m', (symbol, binSize, timestamp) => {
-        fftService.calculateFFT(symbol, binSize, timestamp);
-    });
-    setTimeout(fftService.getLastTimestamp, 35000, 'tETHUSD', '1h', (symbol, binSize, timestamp) => {
-        fftService.calculateFFT(symbol, binSize, timestamp);
-    });
-    setTimeout(fftService.getLastTimestamp, 45000, 'tBABUSD', '5m', (symbol, binSize, timestamp) => {
-        fftService.calculateFFT(symbol, binSize, timestamp);
-    });
-    setTimeout(fftService.getLastTimestamp, 55000, 'tBABUSD', '1h', (symbol, binSize, timestamp) => {
-        fftService.calculateFFT(symbol, binSize, timestamp);
-    });
-    setTimeout(fftService.getLastTimestamp, 65000, 'tEOSUSD', '5m', (symbol, binSize, timestamp) => {
-        fftService.calculateFFT(symbol, binSize, timestamp);
-    });
-    setTimeout(fftService.getLastTimestamp, 75000, 'tEOSUSD', '1h', (symbol, binSize, timestamp) => {
-        fftService.calculateFFT(symbol, binSize, timestamp);
-    });
-    setTimeout(fftService.getLastTimestamp, 85000, 'tLTCUSD', '5m', (symbol, binSize, timestamp) => {
-        fftService.calculateFFT(symbol, binSize, timestamp);
-    });
-    setTimeout(fftService.getLastTimestamp, 95000, 'tLTCUSD', '1h', (symbol, binSize, timestamp) => {
-        fftService.calculateFFT(symbol, binSize, timestamp);
-    });
-    setTimeout(fftService.getLastTimestamp, 105000, 'tBSVUSD', '5m', (symbol, binSize, timestamp) => {
-        fftService.calculateFFT(symbol, binSize, timestamp);
-    });
-    setTimeout(fftService.getLastTimestamp, 115000, 'tBSVUSD', '1h', (symbol, binSize, timestamp) => {
-        fftService.calculateFFT(symbol, binSize, timestamp);
-    });
-    // setTimeout(fftService.getLastTimestamp, 5000, 'tBABUSD', '5m', (symbol, binSize, timestamp) => {
+    //
+    // id0Service.startCalculation('XBTUSD');
+    // id0Service.startCalculation('tETHUSD');
+    // id0Service.startCalculation('tBABUSD');
+    // id0Service.startCalculation('tEOSUSD');
+    // id0Service.startCalculation('tLTCUSD');
+    // id0Service.startCalculation('tBSVUSD');
+    // // id0Service1.startCalculation('tBSVUSD');
+    //
+    // // //fft
+    // setTimeout(fftService.getLastTimestamp, 5000, 'XBTUSD', '5m', (symbol, binSize, timestamp) => {
     //     fftService.calculateFFT(symbol, binSize, timestamp);
     // });
-    // setTimeout(fftService.getLastTimestamp, 15000, 'tBABUSD', '1h', (symbol, binSize, timestamp) => {
+    // setTimeout(fftService.getLastTimestamp, 15000, 'XBTUSD', '1h', (symbol, binSize, timestamp) => {
     //     fftService.calculateFFT(symbol, binSize, timestamp);
     // });
-
-    fftFixService.checkFixRequest();
-
-    // // fft-hist
-    // setTimeout(fftService1.getLastTimestamp, 5000, 'tBABUSD', '5m', (symbol, binSize, timestamp) => {
-    //     fftService1.calculateFFT(symbol, binSize, timestamp);
+    // setTimeout(fftService.getLastTimestamp, 25000, 'tETHUSD', '5m', (symbol, binSize, timestamp) => {
+    //     fftService.calculateFFT(symbol, binSize, timestamp);
     // });
-    // setTimeout(fftService1.getLastTimestamp, 15000, 'tBABUSD', '1h', (symbol, binSize, timestamp) => {
-    //     fftService1.calculateFFT(symbol, binSize, timestamp);
+    // setTimeout(fftService.getLastTimestamp, 35000, 'tETHUSD', '1h', (symbol, binSize, timestamp) => {
+    //     fftService.calculateFFT(symbol, binSize, timestamp);
     // });
+    // setTimeout(fftService.getLastTimestamp, 45000, 'tBABUSD', '5m', (symbol, binSize, timestamp) => {
+    //     fftService.calculateFFT(symbol, binSize, timestamp);
+    // });
+    // setTimeout(fftService.getLastTimestamp, 55000, 'tBABUSD', '1h', (symbol, binSize, timestamp) => {
+    //     fftService.calculateFFT(symbol, binSize, timestamp);
+    // });
+    // setTimeout(fftService.getLastTimestamp, 65000, 'tEOSUSD', '5m', (symbol, binSize, timestamp) => {
+    //     fftService.calculateFFT(symbol, binSize, timestamp);
+    // });
+    // setTimeout(fftService.getLastTimestamp, 75000, 'tEOSUSD', '1h', (symbol, binSize, timestamp) => {
+    //     fftService.calculateFFT(symbol, binSize, timestamp);
+    // });
+    // setTimeout(fftService.getLastTimestamp, 85000, 'tLTCUSD', '5m', (symbol, binSize, timestamp) => {
+    //     fftService.calculateFFT(symbol, binSize, timestamp);
+    // });
+    // setTimeout(fftService.getLastTimestamp, 95000, 'tLTCUSD', '1h', (symbol, binSize, timestamp) => {
+    //     fftService.calculateFFT(symbol, binSize, timestamp);
+    // });
+    // setTimeout(fftService.getLastTimestamp, 105000, 'tBSVUSD', '5m', (symbol, binSize, timestamp) => {
+    //     fftService.calculateFFT(symbol, binSize, timestamp);
+    // });
+    // setTimeout(fftService.getLastTimestamp, 115000, 'tBSVUSD', '1h', (symbol, binSize, timestamp) => {
+    //     fftService.calculateFFT(symbol, binSize, timestamp);
+    // });
+    // // setTimeout(fftService.getLastTimestamp, 5000, 'tBABUSD', '5m', (symbol, binSize, timestamp) => {
+    // //     fftService.calculateFFT(symbol, binSize, timestamp);
+    // // });
+    // // setTimeout(fftService.getLastTimestamp, 15000, 'tBABUSD', '1h', (symbol, binSize, timestamp) => {
+    // //     fftService.calculateFFT(symbol, binSize, timestamp);
+    // // });
+    //
+    // fftFixService.checkFixRequest();
+    //
+    // // // fft-hist
+    // // setTimeout(fftService1.getLastTimestamp, 5000, 'tBABUSD', '5m', (symbol, binSize, timestamp) => {
+    // //     fftService1.calculateFFT(symbol, binSize, timestamp);
+    // // });
+    // // setTimeout(fftService1.getLastTimestamp, 15000, 'tBABUSD', '1h', (symbol, binSize, timestamp) => {
+    // //     fftService1.calculateFFT(symbol, binSize, timestamp);
+    // // });
 
     //bitmex instruments
     bitmexInstrumentService.downloadInstrument();

@@ -3,4 +3,4 @@ require("@babel/register")({
 });
 
 // Import the rest of our application.
-module.exports = require('./start-mysqlapp.js');
+module.exports = require('./start-download.js');
