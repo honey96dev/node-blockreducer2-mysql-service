@@ -94,6 +94,7 @@ if (cluster.isWorker) {
     ]);
     setTimeout(bitmexVolumeService.saveTradesBuffer, 10000);
     setTimeout(bitmexVolumeService.calculateVolume, 20000);
+    setTimeout(bitmexVolumeService.calculateFootprint, 30000);
 
     bitfinexVolumeService.startRead([
       {
