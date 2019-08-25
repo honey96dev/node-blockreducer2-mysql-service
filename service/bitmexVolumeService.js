@@ -271,7 +271,7 @@ service.calculateFootprint = () => {
       }
     });
   });
-  service.footprintTimeoutId = setTimeout(service.calculateVolume, service.timeoutDelay);
+  service.footprintTimeoutId = setTimeout(service.calculateFootprint, service.timeoutDelay);
   console.log('calculateFootprint', service.tradeLastTimestamp);
 };
 
