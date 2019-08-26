@@ -175,7 +175,7 @@ service.calculateFootprint = () => {
   timestamp1 = timestamp1.toISOString();
   timestamp2 = timestamp2.toISOString();
   sql = sprintf("SELECT '%s' `timestamp`, SIGN(`price`) * FLOOR(`price`) `price`, SIGN(`price`) `side`, COUNT(`timestamp`) `count` FROM `%s_%s` WHERE `timestamp` > '%s' AND `timestamp` <= '%s' GROUP BY FLOOR(`price`), `side` ORDER BY `price`;", timestamp1, dbTblName.tradesBuffer, symbol, timestamp2, timestamp1);
-  console.error(sql);
+  // console.error(sql);
   dbConn.query(sql, null, (error, rows, fields) => {
     if (error) {
       console.error(JSON.stringify(error));
@@ -186,15 +186,15 @@ service.calculateFootprint = () => {
     for (let row of rows) {
       data.push([row['timestamp'], row['price'], row['side'], row['count']]);
     }
-    console.error('footprint', JSON.stringify(data));
+    // console.error('footprint', JSON.stringify(data));
     symbol = 'XBTUSD';
     sql = sprintf("INSERT INTO `%s_%s` VALUES ? ON DUPLICATE KEY UPDATE `count` = VALUES(`count`);", dbTblName.footprint5m, symbol);
-    console.error(sql);
+    // console.error(sql);
     dbConn.query(sql, [data], (error, rows, fields) => {
       if (error) {
         console.error(error);
       } else {
-        console.log('insert-okay');
+        // console.log('insert-okay');
       }
     });
   });
