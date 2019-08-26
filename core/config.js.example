@@ -39,6 +39,11 @@ module.exports = {
     deribitInstruments: 'deribit_instruments',
     deribitInstruments2: 'deribit_instruments2',
 
+    footprint: 'footprint',
+    footprint1m: 'footprint_1m',
+    footprint5m: 'footprint_5m',
+    footprint1h: 'footprint_1h',
+
     fftFixTask: 'fft_fix_task',
   },
   bitmex: {
@@ -67,4 +72,9 @@ module.exports = {
     bufferSize: 750,
     pathCandleTrade: '/candles/trade',
   },
+  bybit: {
+    testnet: false,
+    wsUrlTestnet: 'wss://stream-testnet.bybit.com/realtime',
+    wsUrlRealnet: 'wss://stream.bybit.com/realtime',
+  }
 };
