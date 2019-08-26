@@ -12,6 +12,7 @@ import bitmexInstrumentService from '../service/bitmexInstrumentService';
 import deribitInstrumentService from '../service/deribitInstrumentService';
 import id0Service from '../service/id0Service';
 import id0Service1 from '../service/id0Service1';
+import bybitFootprintService from '../service/bybitFootprintService';
 
 if (cluster.isMaster) {
     cluster.fork();
@@ -94,7 +95,12 @@ if (cluster.isWorker) {
     ]);
     setTimeout(bitmexVolumeService.saveTradesBuffer, 10000);
     setTimeout(bitmexVolumeService.calculateVolume, 20000);
-    setTimeout(bitmexVolumeService.calculateFootprint, 30000);
+
+    bybitFootprintService.startRead([
+        'trade.BTCUSD',
+    ]);
+    setTimeout(bybitFootprintService.saveTradesBuffer, 10000);
+    setTimeout(bybitFootprintService.calculateFootprint, 20000);
 
     bitfinexVolumeService.startRead([
       {

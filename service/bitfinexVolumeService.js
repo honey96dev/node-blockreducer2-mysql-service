@@ -171,7 +171,7 @@ service.calculateVolume = () => {
   let timestamp2;
   timestamp1 = new Date(service.tradeLastTimestamp);
   timestamp1.setSeconds(0, 0);
-  timestamp2 = new Date(timestamp1.getTime() - 24 * 60 * 60 * 1000);
+  timestamp2 = new Date(timestamp1.getTime() - 2 * 60 * 60 * 1000);
   timestamp1 = timestamp1.toISOString();
   timestamp2 = timestamp2.toISOString();
 

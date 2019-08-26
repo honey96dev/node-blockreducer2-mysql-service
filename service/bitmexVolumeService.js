@@ -163,7 +163,7 @@ service.calculateVolume = () => {
   let timestamp2;
   timestamp1 = new Date(service.tradeLastTimestamp);
   timestamp1.setSeconds(0, 0);
-  timestamp2 = new Date(timestamp1.getTime() - 24 * 60 * 60 * 1000);
+  timestamp2 = new Date(timestamp1.getTime() - 2 * 60 * 60 * 1000);
   timestamp1 = timestamp1.toISOString();
   timestamp2 = timestamp2.toISOString();
 
@@ -228,51 +228,51 @@ service.calculateVolume = () => {
   service.calcTimeoutId = setTimeout(service.calculateVolume, service.timeoutDelay);
   console.log('bitmexCalculateVolume', service.tradeLastTimestamp);
 }
-
-service.calculateFootprint = () => {
-  if (service.footprintTimeoutId) {
-    clearTimeout(service.footprintTimeoutId);
-  }
-
-  let sql;
-  let timestamp1;
-  let timestamp2;
-  timestamp1 = new Date(service.tradeLastTimestamp);
-  timestamp1.setSeconds(0, 0);
-  timestamp2 = new Date(timestamp1.getTime() - 24 * 60 * 60 * 1000);
-  timestamp1 = timestamp1.toISOString();
-  timestamp2 = timestamp2.toISOString();
-
-  const symbol = 'XBTUSD';
-  sql = sprintf("DELETE FROM `%s_%s` WHERE `timestamp` < '%s';", dbTblName.tradesBuffer, symbol, timestamp2);
-  dbConn.query(sql, null, (error, result, fields) => {
-  });
-
-  timestamp1 = new Date(service.tradeLastTimestamp);
-  timestamp1.setMinutes(Math.floor(timestamp1.getMinutes() / 5) * 5, 0, 0);
-  timestamp2 = new Date(timestamp1.getTime() - 5 * 60 * 1000);
-  timestamp1 = timestamp1.toISOString();
-  timestamp2 = timestamp2.toISOString();
-  sql = sprintf("SELECT '%s' `timestamp`, SIGN(`price`) * FLOOR(`price`) `price`, SIGN(`price`) `side`, SUM(`timestamp`) `count` FROM `%s_%s` WHERE `timestamp` > '%s' AND `timestamp` <= '%s' GROUP BY FLOOR(`price`), `side` ORDER BY `price`;", timestamp1, dbTblName.tradesBuffer, symbol, timestamp2, timestamp1);
-  dbConn.query(sql, null, (error, rows, fields) => {
-    if (error) {
-      console.error(JSON.stringify(error));
-      return;
-    }
-    console.error('footprint', JSON.stringify(rows));
-    let data = [];
-    for (let row of rows) {
-      data.push([row['timestamp'], row['price'], row['side'], row['count']]);
-    }
-    sql = sprintf("INSERT INTO `%s_%s`(`timestamp`, `price`, `side`, `count`) VALUES ? ON DUPLICATE KEY UPDATE `count` = VALUES(`count`);", dbTblName.footprint5m, symbol);
-    dbConn.query(sql, [data], (error, rows, fields) => {
-      if (error) {
-        console.error(error);
-      }
-    });
-  });
-  service.footprintTimeoutId = setTimeout(service.calculateFootprint, service.timeoutDelay);
-  console.log('calculateFootprint', service.tradeLastTimestamp);
-};
+//
+// service.calculateFootprint = () => {
+//   if (service.footprintTimeoutId) {
+//     clearTimeout(service.footprintTimeoutId);
+//   }
+//
+//   let sql;
+//   let timestamp1;
+//   let timestamp2;
+//   timestamp1 = new Date(service.tradeLastTimestamp);
+//   timestamp1.setSeconds(0, 0);
+//   timestamp2 = new Date(timestamp1.getTime() - 24 * 60 * 60 * 1000);
+//   timestamp1 = timestamp1.toISOString();
+//   timestamp2 = timestamp2.toISOString();
+//
+//   const symbol = 'XBTUSD';
+//   sql = sprintf("DELETE FROM `%s_%s` WHERE `timestamp` < '%s';", dbTblName.tradesBuffer, symbol, timestamp2);
+//   dbConn.query(sql, null, (error, result, fields) => {
+//   });
+//
+//   timestamp1 = new Date(service.tradeLastTimestamp);
+//   timestamp1.setMinutes(Math.floor(timestamp1.getMinutes() / 5) * 5, 0, 0);
+//   timestamp2 = new Date(timestamp1.getTime() - 5 * 60 * 1000);
+//   timestamp1 = timestamp1.toISOString();
+//   timestamp2 = timestamp2.toISOString();
+//   sql = sprintf("SELECT '%s' `timestamp`, SIGN(`price`) * FLOOR(`price`) `price`, SIGN(`price`) `side`, SUM(`timestamp`) `count` FROM `%s_%s` WHERE `timestamp` > '%s' AND `timestamp` <= '%s' GROUP BY FLOOR(`price`), `side` ORDER BY `price`;", timestamp1, dbTblName.tradesBuffer, symbol, timestamp2, timestamp1);
+//   dbConn.query(sql, null, (error, rows, fields) => {
+//     if (error) {
+//       console.error(JSON.stringify(error));
+//       return;
+//     }
+//     console.error('footprint', JSON.stringify(rows));
+//     let data = [];
+//     for (let row of rows) {
+//       data.push([row['timestamp'], row['price'], row['side'], row['count']]);
+//     }
+//     sql = sprintf("INSERT INTO `%s_%s`(`timestamp`, `price`, `side`, `count`) VALUES ? ON DUPLICATE KEY UPDATE `count` = VALUES(`count`);", dbTblName.footprint5m, symbol);
+//     dbConn.query(sql, [data], (error, rows, fields) => {
+//       if (error) {
+//         console.error(error);
+//       }
+//     });
+//   });
+//   service.footprintTimeoutId = setTimeout(service.calculateFootprint, service.timeoutDelay);
+//   console.log('calculateFootprint', service.tradeLastTimestamp);
+// };
 
 module.exports = service;
