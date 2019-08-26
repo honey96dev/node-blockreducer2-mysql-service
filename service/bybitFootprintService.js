@@ -193,6 +193,8 @@ service.calculateFootprint = () => {
     dbConn.query(sql, [data], (error, rows, fields) => {
       if (error) {
         console.error(error);
+      } else {
+        console.log('insert-okay');
       }
     });
   });
