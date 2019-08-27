@@ -131,6 +131,7 @@ if (cluster.isWorker) {
     ]);
     setTimeout(bitfinexVolumeService.saveTradesBuffer, 10000);
     setTimeout(bitfinexVolumeService.calculateVolume, 20000);
+    setTimeout(bitfinexVolumeService.calculateFootprint, 25000);
 
     //
     // id0Service.startCalculation('XBTUSD');
