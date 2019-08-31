@@ -267,7 +267,8 @@ service.calculateFootprint = () => {
     timestamp2 = new Date(timestamp1.getTime() - 5 * 60 * 1000);
     timestamp1 = timestamp1.toISOString();
     timestamp2 = timestamp2.toISOString();
-    sql = sprintf("SELECT '%s' `timestamp`, SIGN(`price`) * FLOOR(`price`) `price`, SIGN(`price`) `side`, COUNT(`timestamp`) `count` FROM `%s_%s` WHERE `timestamp` > '%s' AND `timestamp` <= '%s' GROUP BY FLOOR(`price`), `side` ORDER BY `price`;", timestamp1, dbTblName.tradesBuffer, symbol, timestamp2, timestamp1);
+    sql = sprintf("SELECT '%s' `timestamp`, FLOOR(`price`) `price`, SIGN(`size`) `side`, COUNT(`timestamp`) `count` FROM `%s_%s` WHERE `timestamp` > '%s' AND `timestamp` <= '%s' GROUP BY FLOOR(`price`), `side` ORDER BY `price`;", timestamp1, dbTblName.tradesBuffer, symbol, timestamp2, timestamp1);
+    console.error('footprint', sql);
     // const volumeTimestamp1m = timestamp1;
     dbConn.query(sql, null, (error, rows, fields) => {
       if (error) {

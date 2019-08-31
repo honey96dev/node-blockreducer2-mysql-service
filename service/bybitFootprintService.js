@@ -187,7 +187,7 @@ service.calculateFootprint = () => {
       data.push([row['timestamp'], row['price'], row['side'], row['count']]);
     }
     // console.error('footprint', JSON.stringify(data));
-    symbol = 'XBTUSD';
+    // symbol = 'XBTUSD';
     sql = sprintf("INSERT INTO `%s_%s` VALUES ? ON DUPLICATE KEY UPDATE `count` = VALUES(`count`);", dbTblName.footprint5m, symbol);
     // console.error(sql);
     dbConn.query(sql, [data], (error, rows, fields) => {

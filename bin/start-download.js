@@ -95,6 +95,7 @@ if (cluster.isWorker) {
     ]);
     setTimeout(bitmexVolumeService.saveTradesBuffer, 10000);
     setTimeout(bitmexVolumeService.calculateVolume, 20000);
+    setTimeout(bitmexVolumeService.calculateFootprint, 20000);
 
     bybitFootprintService.startRead([
         'trade.BTCUSD',
